@@ -1,20 +1,17 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TransCare.Interfaces;
 
 namespace TransCare.Data.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDataServices(this IServiceCollection services)
+        public static IServiceCollection AddDataServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IProviderRepository, ProviderRepository>();
-            services.AddDbContext<ProviderContext>();
+            services.AddDbContext<TransCareContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("TransCareDatabase")));
 
             return services;
         }

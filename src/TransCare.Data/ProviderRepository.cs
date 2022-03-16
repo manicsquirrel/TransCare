@@ -4,51 +4,51 @@ namespace TransCare.Data
 {
     public class ProviderRepository : IProviderRepository
     {
-        private readonly ProviderContext _providerContext;
+        private readonly TransCareContext _transCareContext;
 
-        public ProviderRepository(ProviderContext providerContext)
+        public ProviderRepository(TransCareContext transCareContext)
         {
-            _providerContext = providerContext;
+            _transCareContext = transCareContext;
         }
 
         public void Delete(int id)
         {
-            var provider = _providerContext.Providers.Single(p => p.Id == id);
-            _providerContext.Providers.Remove(provider);
-            _providerContext.SaveChanges();
+            var provider = _transCareContext.Providers.Single(p => p.Id == id);
+            _transCareContext.Providers.Remove(provider);
+            _transCareContext.SaveChanges();
         }
 
-        public Provider Get(int id) => _providerContext.Providers.Single(p => p.Id == id);
+        public Provider Get(int id) => _transCareContext.Providers.Single(p => p.Id == id);
 
-        public IEnumerable<Provider> GetAll() => _providerContext.Providers.ToList();
+        public IEnumerable<Provider> GetAll() => _transCareContext.Providers.ToList();
 
         public IEnumerable<Provider> GetFiltered(string query)
         {
-            IQueryable<Provider> queryableObject = _providerContext.Providers;
+            IQueryable<Provider> queryableObject = _transCareContext.Providers;
 
             queryableObject = queryableObject.Where(p =>
-                 p.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)
+                 p.ProviderName.Contains(query, StringComparison.CurrentCultureIgnoreCase)
                  || p.Notes.Contains(query, StringComparison.CurrentCultureIgnoreCase)
                  || p.Phone.Contains(query, StringComparison.CurrentCultureIgnoreCase)
                  || p.State.Contains(query, StringComparison.CurrentCultureIgnoreCase)
                  || p.Street.Contains(query, StringComparison.CurrentCultureIgnoreCase));
 
-            return queryableObject.OrderBy(p => p.Name);
+            return queryableObject.OrderBy(p => p.ProviderName);
         }
 
         public Provider Save(Provider provider)
         {
-            var entity = _providerContext.Providers.Single(p => p.Id == provider.Id);
+            var entity = _transCareContext.Providers.Single(p => p.Id == provider.Id);
             if (entity == null)
             {
-                var entry = _providerContext.Add(provider);
+                var entry = _transCareContext.Add(provider);
                 entity = entry.Entity;
             }
             else
             {
-                _providerContext.Entry(entity).CurrentValues.SetValues(provider);
+                _transCareContext.Entry(entity).CurrentValues.SetValues(provider);
             }
-            _providerContext.SaveChanges();
+            _transCareContext.SaveChanges();
             return entity;
         }
     }
