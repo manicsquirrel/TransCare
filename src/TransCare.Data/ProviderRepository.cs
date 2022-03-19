@@ -25,13 +25,12 @@ namespace TransCare.Data
         public IEnumerable<Provider> GetFiltered(string query)
         {
             IQueryable<Provider> queryableObject = _transCareContext.Providers;
-
             queryableObject = queryableObject.Where(p =>
-                 p.ProviderName.Contains(query, StringComparison.CurrentCultureIgnoreCase)
-                 || p.Notes.Contains(query, StringComparison.CurrentCultureIgnoreCase)
-                 || p.Phone.Contains(query, StringComparison.CurrentCultureIgnoreCase)
-                 || p.State.Contains(query, StringComparison.CurrentCultureIgnoreCase)
-                 || p.Street.Contains(query, StringComparison.CurrentCultureIgnoreCase));
+                 p.ProviderName.Contains(query)
+                 || p.Notes.Contains(query)
+                 || p.Phone.Contains(query)
+                 || p.State.Contains(query)
+                 || p.Street.Contains(query));
 
             return queryableObject.OrderBy(p => p.ProviderName);
         }

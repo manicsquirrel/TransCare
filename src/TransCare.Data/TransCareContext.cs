@@ -1,28 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore;
-using System;
-using TransCare.Data.Configurations;
-using Microsoft.Data.SqlClient;
-
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlTypes;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace TransCare.Data
 {
-    public partial class TransCareContext : DbContext
+    public class TransCareContext : DbContext
     {
-        public TransCareContext()
-        {
-        }
+        //public TransCareContext()
+        //{
+        //}
 
         public TransCareContext(DbContextOptions<TransCareContext> options)
             : base(options)
         {
         }
 
-        public  DbSet<Provider> Providers { get; set; }
+        public DbSet<Provider> Providers { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -35,12 +26,13 @@ namespace TransCare.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            //modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.ApplyConfiguration(new Configurations.ProviderConfiguration());
-            OnModelCreatingPartial(modelBuilder);
+            //modelBuilder.ApplyConfiguration(new Configurations.ProviderConfiguration());
+            //OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<Provider>().ToTable("Provider");
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
