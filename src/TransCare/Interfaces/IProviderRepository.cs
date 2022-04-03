@@ -2,14 +2,14 @@
 {
     public interface IProviderRepository
     {
-        Provider Get(int id);
+        HealthProvider Get(int id);
 
-        IEnumerable<Provider> GetAll();
+        IEnumerable<HealthProvider> GetAll();
 
-        Provider Save(Provider provider);
+        HealthProvider Save(HealthProvider provider);
 
         void Delete(int id);
 
-        IEnumerable<Provider> GetFiltered(string query);
+        IEnumerable<HealthProvider> GetFiltered(string query);
     }
 }

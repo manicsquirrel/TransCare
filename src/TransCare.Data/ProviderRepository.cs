@@ -18,13 +18,13 @@ namespace TransCare.Data
             _transCareContext.SaveChanges();
         }
 
-        public Provider Get(int id) => _transCareContext.Providers.Single(p => p.Id == id);
+        public HealthProvider Get(int id) => _transCareContext.Providers.Single(p => p.Id == id);
 
-        public IEnumerable<Provider> GetAll() => _transCareContext.Providers.ToList();
+        public IEnumerable<HealthProvider> GetAll() => _transCareContext.Providers.ToList();
 
-        public IEnumerable<Provider> GetFiltered(string query)
+        public IEnumerable<HealthProvider> GetFiltered(string query)
         {
-            IQueryable<Provider> queryableObject = _transCareContext.Providers;
+            IQueryable<HealthProvider> queryableObject = _transCareContext.Providers;
             queryableObject = queryableObject.Where(p =>
                  p.ProviderName.Contains(query)
                  || p.Notes.Contains(query)
@@ -35,9 +35,9 @@ namespace TransCare.Data
             return queryableObject.OrderBy(p => p.ProviderName);
         }
 
-        public Provider Save(Provider provider)
+        public HealthProvider Save(HealthProvider provider)
         {
-            var entity = _transCareContext.Providers.Single(p => p.Id == provider.Id);
+            var entity = _transCareContext.Providers.FirstOrDefault(p => p.Id == provider.Id);
             if (entity == null)
             {
                 var entry = _transCareContext.Add(provider);

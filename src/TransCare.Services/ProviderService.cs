@@ -3,7 +3,7 @@ using TransCare.Services.Abstractions;
 
 namespace TransCare.Services
 {
-    public class ProviderService : IProviderService
+    public class ProviderService : IHealthProviderService
     {
         private readonly IProviderRepository _providerRepository;
 
@@ -11,12 +11,12 @@ namespace TransCare.Services
 
         public void Delete(int id) => _providerRepository.Delete(id);
 
-        public Provider Get(int id) => _providerRepository.Get(id);
+        public HealthProvider Get(int id) => _providerRepository.Get(id);
 
-        public IEnumerable<Provider> GetAll() => _providerRepository.GetAll();
+        public IEnumerable<HealthProvider> GetAll() => _providerRepository.GetAll();
 
-        public IEnumerable<Provider> GetFiltered(string query) => _providerRepository.GetFiltered(query);
+        public IEnumerable<HealthProvider> GetFiltered(string query) => _providerRepository.GetFiltered(query);
 
-        public Provider Save(Provider provider) => _providerRepository.Save(provider);
+        public HealthProvider Save(HealthProvider provider) => _providerRepository.Save(provider);
     }
 }

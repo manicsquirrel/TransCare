@@ -1,0 +1,50 @@
+<div class="card">
+  <h5>Subheader Grouping</h5>
+  <p>Group customers by their representative.</p>
+  <p-table [value]="providers" sortField="state" sortMode="single" [scrollable]="true" scrollHeight="400px"
+    rowGroupMode="subheader" groupRowsBy="state">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width:200px">Name</th>
+        <th style="min-width:200px">Street</th>
+        <th style="min-width:200px">City</th>
+        <th style="min-width:200px">State</th>
+        <th style="min-width:200px">Phone</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupheader" let-provider>
+      <tr pRowGroupHeader>
+        <td colspan="5">
+          <span class="p-text-bold p-ml-2">{{provider.state}}</span>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupfooter" let-provider>
+      <tr class="p-rowgroup-footer">
+        <td style="min-width: 80%">
+          <div style="text-align: right; width: 100%">Total Providers</div>
+        </td>
+        <td style="width: 20%">{{calculateStateTotal(provider.state)}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-provider let-rowIndex="rowIndex">
+      <tr>
+        <td style="min-width:200px">
+          {{provider.providerName}}
+        </td>
+        <td style="min-width:200px">
+          {{provider.Street}}
+        </td>
+        <td style="min-width:200px">
+          {{provider.City}}
+        </td>
+        <td style="min-width:200px">
+          {{provider.state}}
+        </td>
+        <td style="min-width:200px">
+          {{provider.Phone}}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

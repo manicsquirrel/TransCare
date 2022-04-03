@@ -1,6 +1,6 @@
 ﻿namespace TransCare
 {
-    public class Provider
+    public class HealthProvider
     {
         public int Id { get; set; }
 

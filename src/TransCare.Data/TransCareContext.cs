@@ -13,7 +13,7 @@ namespace TransCare.Data
         {
         }
 
-        public DbSet<Provider> Providers { get; set; }
+        public DbSet<HealthProvider> Providers { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -30,7 +30,7 @@ namespace TransCare.Data
 
             //modelBuilder.ApplyConfiguration(new Configurations.ProviderConfiguration());
             //OnModelCreatingPartial(modelBuilder);
-            modelBuilder.Entity<Provider>().ToTable("Provider");
+            modelBuilder.Entity<HealthProvider>().ToTable("Provider");
         }
 
         //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

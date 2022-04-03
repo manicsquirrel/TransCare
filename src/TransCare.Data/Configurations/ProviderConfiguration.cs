@@ -6,9 +6,9 @@ using System;
 
 namespace TransCare.Data.Configurations
 {
-    public partial class ProviderConfiguration : IEntityTypeConfiguration<Provider>
+    public partial class ProviderConfiguration : IEntityTypeConfiguration<HealthProvider>
     {
-        public void Configure(EntityTypeBuilder<Provider> entity)
+        public void Configure(EntityTypeBuilder<HealthProvider> entity)
         {
             entity.ToTable("Provider");
 
@@ -60,6 +60,6 @@ namespace TransCare.Data.Configurations
             OnConfigurePartial(entity);
         }
 
-        partial void OnConfigurePartial(EntityTypeBuilder<Provider> entity);
+        partial void OnConfigurePartial(EntityTypeBuilder<HealthProvider> entity);
     }
 }
