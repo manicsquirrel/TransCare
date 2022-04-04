@@ -1,4 +1,5 @@
-﻿using TransCare.Interfaces;
+﻿using TransCare.Entities;
+using TransCare.Interfaces;
 
 namespace TransCare.Data
 {
@@ -13,18 +14,18 @@ namespace TransCare.Data
 
         public void Delete(int id)
         {
-            var provider = _transCareContext.Providers.Single(p => p.Id == id);
-            _transCareContext.Providers.Remove(provider);
+            var provider = _transCareContext.HealthProviders.Single(p => p.Id == id);
+            _transCareContext.HealthProviders.Remove(provider);
             _transCareContext.SaveChanges();
         }
 
-        public HealthProvider Get(int id) => _transCareContext.Providers.Single(p => p.Id == id);
+        public HealthProvider Get(int id) => _transCareContext.HealthProviders.Single(p => p.Id == id);
 
-        public IEnumerable<HealthProvider> GetAll() => _transCareContext.Providers.ToList();
+        public IEnumerable<HealthProvider> GetAll() => _transCareContext.HealthProviders.ToList();
 
         public IEnumerable<HealthProvider> GetFiltered(string query)
         {
-            IQueryable<HealthProvider> queryableObject = _transCareContext.Providers;
+            IQueryable<HealthProvider> queryableObject = _transCareContext.HealthProviders;
             queryableObject = queryableObject.Where(p =>
                  p.ProviderName.Contains(query)
                  || p.Notes.Contains(query)
@@ -37,7 +38,7 @@ namespace TransCare.Data
 
         public HealthProvider Save(HealthProvider provider)
         {
-            var entity = _transCareContext.Providers.FirstOrDefault(p => p.Id == provider.Id);
+            var entity = _transCareContext.HealthProviders.FirstOrDefault(p => p.Id == provider.Id);
             if (entity == null)
             {
                 var entry = _transCareContext.Add(provider);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
+using TransCare.Entities;
 using TransCare.Services.Abstractions;
 using TransCare.Web.Pages;
 

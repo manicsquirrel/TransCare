@@ -1,6 +1,8 @@
-﻿namespace TransCare
+﻿using TransCare.Entities;
+
+namespace TransCare.Models
 {
-    public class HealthProvider
+    public class HealthProviderDTO
     {
         public int Id { get; set; }
 
@@ -20,13 +22,10 @@
 
         public string City { get; set; }
 
-        public string State { get; set; }
+        public State State { get; set; }
 
         public string Street { get; set; }
 
         public string ZipCode { get; set; }
-
-        public string FullAddress => $"{Street}, {City} {State} {ZipCode}";
-
     }
 }

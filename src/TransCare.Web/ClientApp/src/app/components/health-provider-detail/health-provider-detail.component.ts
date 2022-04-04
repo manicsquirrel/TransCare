@@ -7,7 +7,7 @@ import { HealthProviderService } from 'src/app/services/provider.service';
 @Component({
   selector: 'app-health-provider-detail',
   templateUrl: './health-provider-detail.component.html',
-  styleUrls: ['./health-provider-detail.component.css']
+  styleUrls: ['./health-provider-detail.component.scss']
 })
 export class HealthProviderDetailComponent implements OnInit {
 

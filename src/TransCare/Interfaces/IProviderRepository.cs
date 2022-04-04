@@ -1,4 +1,6 @@
-﻿namespace TransCare.Interfaces
+﻿using TransCare.Entities;
+
+namespace TransCare.Interfaces
 {
     public interface IProviderRepository
     {

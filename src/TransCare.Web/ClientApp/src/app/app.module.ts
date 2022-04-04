@@ -29,7 +29,6 @@ import { HealthProviderReportComponent } from './components/health-provider-repo
 import { CommonModule } from '@angular/common';
 import {CardModule} from 'primeng/card';
 
-
 @NgModule({
   declarations: [
     AppComponent,

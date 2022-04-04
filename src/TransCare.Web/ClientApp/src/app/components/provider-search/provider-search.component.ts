@@ -7,7 +7,7 @@ import { HealthProviderService } from "src/app/services/provider.service";
 @Component({
   selector: 'app-provider-search',
   templateUrl: './provider-search.component.html',
-  styleUrls: ['./provider-search.component.css']
+  styleUrls: ['./provider-search.component.scss']
 })
 export class ProviderSearchComponent implements OnInit {
 

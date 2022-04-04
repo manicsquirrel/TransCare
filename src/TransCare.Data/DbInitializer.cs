@@ -1,13 +1,23 @@
-﻿namespace TransCare.Data
+﻿using TransCare.Entities;
+
+namespace TransCare.Data
 {
     public class DbInitializer
     {
         public static void Initialize(TransCareContext context)
         {
+            ArgumentNullException.ThrowIfNull(context, nameof(context));
             context.Database.EnsureCreated();
-            if (context.Providers.Any()) return;
+            AddHealthProviders(context);
+            AddStates(context);
+        }
 
-            var providers = new HealthProvider[]
+        public static void AddHealthProviders(TransCareContext context)
+        {
+            ArgumentNullException.ThrowIfNull(context, nameof(context));
+            if (context.HealthProviders.Any()) return;
+
+            var providers = new List<HealthProvider>
             {
                 new HealthProvider {Latitude=47.245658,Longitude=-68.577575,ProviderName="Fort Kent Family Planning",Notes="",Email="",Phone="",Url="",City="Fort Kent",State="ME",Street="139 Market St",ZipCode="04743"},
                 new HealthProvider {Latitude=44.548562,Longitude=-69.630567,ProviderName="Waterville Family Planning",Notes="",Email="",Phone="",Url="",City="Waterville",State="ME",Street="18 Silver St",ZipCode="04901"},
@@ -763,13 +773,98 @@
                 new HealthProvider {Latitude=44.949617,Longitude=-93.294915,ProviderName="Planned Parenthood - Minneapolis Clinic",Notes="",Email="",Phone="",Url="",City="Minneapolis",State="MN",Street="1200 Lagoon Ave",ZipCode="55408"},
                 new HealthProvider {Latitude=35.931222,Longitude=-79.032648,ProviderName="Avance Primary Care - Chapel Hill",Notes="",Email="",Phone="",Url="",City="Chapel Hill",State="NC",Street="1512 E Franklin St",ZipCode="27514"},
                 new HealthProvider {Latitude=34.747841,Longitude=-92.345241,ProviderName="UAMS Gender Clinic (see notes) 501-516-6261 ",Notes="https://ddei.uams.edu/wp-content/uploads/sites/171/2020/01/Gender-Clinic-Packet-Welcome-and-Contact-Info.pdf",Email="",Phone="",Url="",City="Little Rock",State="AR",Street="6119 Midtown Ave",ZipCode="72205"},
-                new HealthProvider {Latitude=29.310861,Longitude=-94.776976,ProviderName="Trans health clinic at UTMB Health - University of Texas Medical Branch at Galveston",Notes="https://www.utmbhealth.com/services/transgender-care#HRT",Email="",Phone="",Url="",City="Galveston",State="TX",Street="301 University Blvd",ZipCode="77555"} 
+                new HealthProvider {Latitude=29.310861,Longitude=-94.776976,ProviderName="Trans health clinic at UTMB Health - University of Texas Medical Branch at Galveston",Notes="https://www.utmbhealth.com/services/transgender-care#HRT",Email="",Phone="",Url="",City="Galveston",State="TX",Street="301 University Blvd",ZipCode="77555"}
             };
 
-            foreach (HealthProvider p in providers)
+            providers.ForEach(e => context.HealthProviders.Add(e));
+            context.SaveChanges();
+        }
+
+        public static void AddStates(TransCareContext context)
+        {
+            ArgumentNullException.ThrowIfNull(context, nameof(context));
+            if (context.States.Any()) return;
+
+            var states = new List<State>
             {
-                context.Providers.Add(p);
-            }
+                new State {Code="AL",Value="ALABAMA"},
+                new State {Code="AK",Value="ALASKA"},
+                new State {Code="AB",Value="ALBERTA"},
+                new State {Code="AS",Value="AMERICAN SAMOA"},
+                new State {Code="AZ",Value="ARIZONA"},
+                new State {Code="AR",Value="ARKANSAS"},
+                new State {Code="BC",Value="BRITISH COLUMBIA"},
+                new State {Code="CA",Value="CALIFORNIA"},
+                new State {Code="PW",Value="CAROLINE ISLANDS"},
+                new State {Code="CO",Value="COLORADO"},
+                new State {Code="CT",Value="CONNETICUT"},
+                new State {Code="DE",Value="DELAWARE"},
+                new State {Code="DC",Value="DISTRICT OF COLUMBIA"},
+                new State {Code="FM",Value="FEDERATED STATE"},
+                new State {Code="FL",Value="FLORIDA"},
+                new State {Code="GA",Value="GEORGIA"},
+                new State {Code="GU",Value="GUAM"},
+                new State {Code="HI",Value="HAWAII"},
+                new State {Code="ID",Value="IDOHA"},
+                new State {Code="IL",Value="ILLINOIS"},
+                new State {Code="IN",Value="INDIANA"},
+                new State {Code="IA",Value="IOWA"},
+                new State {Code="KS",Value="KANSAS"},
+                new State {Code="KY",Value="KENTUCKY"},
+                new State {Code="LA",Value="LOUSIANA"},
+                new State {Code="ME",Value="MAINE"},
+                new State {Code="MB",Value="MANITOBA"},
+                new State {Code="MP",Value="MARIANA ISLANDS"},
+                new State {Code="MH",Value="MARSHALL ISLANDS"},
+                new State {Code="MD",Value="MARYLAND"},
+                new State {Code="MA",Value="MASSACHUSETTS"},
+                new State {Code="MI",Value="MICHIGAN"},
+                new State {Code="MN",Value="MINNESOTA"},
+                new State {Code="MS",Value="MISSISSIPPI"},
+                new State {Code="MO",Value="MISSOURI"},
+                new State {Code="MT",Value="MONTANA"},
+                new State {Code="NE",Value="NEBRASKA"},
+                new State {Code="NV",Value="NEVADA"},
+                new State {Code="NB",Value="NEW BRUNSWICK"},
+                new State {Code="NH",Value="NEW HAMPSHIRE"},
+                new State {Code="NJ",Value="NEW JERSEY"},
+                new State {Code="NM",Value="NEW MEXICO"},
+                new State {Code="NY",Value="NEW YORK"},
+                new State {Code="NF",Value="NEWFOUNDLAND"},
+                new State {Code="NC",Value="NORTH CAROLINA"},
+                new State {Code="ND",Value="NORTH DAKOTA"},
+                new State {Code="NT",Value="NORTHWEST TERRITORIES"},
+                new State {Code="NS",Value="NOVA SCOTIA"},
+                new State {Code="NU",Value="NUNAVUT"},
+                new State {Code="OH",Value="OHIO"},
+                new State {Code="OK",Value="OKLAHOMA"},
+                new State {Code="ON",Value="ONTARIO"},
+                new State {Code="OR",Value="OREGON"},
+                new State {Code="PA",Value="PENNSYLVANIA"},
+                new State {Code="PE",Value="PRINCE EDWARD ISLAND"},
+                new State {Code="PR",Value="PUERTO RICO"},
+                new State {Code="PQ",Value="QUEBEC"},
+                new State {Code="RI",Value="RHODE ISLAND"},
+                new State {Code="SK",Value="SASKATCHEWAN"},
+                new State {Code="SC",Value="SOUTH CAROLINA"},
+                new State {Code="SD",Value="SOUTH DAKOTA"},
+                new State {Code="TN",Value="TENNESSEE"},
+                new State {Code="TX",Value="TEXAS"},
+                new State {Code="UT",Value="UTAH"},
+                new State {Code="VT",Value="VERMONT"},
+                new State {Code="VI",Value="VIRGIN ISLANDS"},
+                new State {Code="VA",Value="VIRGINIA"},
+                new State {Code="WA",Value="WASHINGTON"},
+                new State {Code="WV",Value="WEST VIRGINIA"},
+                new State {Code="WI",Value="WISCONSIN"},
+                new State {Code="WY",Value="WYOMING"},
+                new State {Code="YT",Value="YUKON TERRITORY"},
+                new State {Code="AE",Value="ARMED FORCES - EUROPE"},
+                new State {Code="AA",Value="ARMED FORCES - AMERICAS"},
+                new State {Code="AP",Value="ARMED FORCES - PACIFIC"}
+            };
+
+            states.ForEach(e => context.States.Add(e));
             context.SaveChanges();
         }
     }

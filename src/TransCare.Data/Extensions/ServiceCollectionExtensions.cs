@@ -10,6 +10,7 @@ namespace TransCare.Data.Extensions
         public static IServiceCollection AddDataServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IProviderRepository, ProviderRepository>();
+            services.AddScoped<IStateRepository, StateRepository>();
             services.AddDbContext<TransCareContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("TransCareDatabase")));
 

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore;
 using System;
+using TransCare.Entities;
+using System.Reflection.Emit;
 
 namespace TransCare.Data.Configurations
 {
@@ -10,7 +12,9 @@ namespace TransCare.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<HealthProvider> entity)
         {
-            entity.ToTable("Provider");
+            entity.ToTable("HealthProvider");
+
+            entity.HasOne<State>().WithMany().HasForeignKey(e => e.State);
 
             entity.Property(e => e.City)
                 .IsRequired()
@@ -39,6 +43,7 @@ namespace TransCare.Data.Configurations
                 .IsUnicode(false);
 
             entity.Property(e => e.State)
+                .HasColumnName("State")
                 .IsRequired()
                 .HasMaxLength(2)
                 .IsUnicode(false);

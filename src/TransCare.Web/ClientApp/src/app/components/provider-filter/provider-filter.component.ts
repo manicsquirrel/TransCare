@@ -5,7 +5,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-provider-filter',
   templateUrl: './provider-filter.component.html',
-  styleUrls: ['./provider-filter.component.css']
+  styleUrls: ['./provider-filter.component.scss']
 })
 export class ProviderFilterComponent implements OnInit, OnDestroy {
 

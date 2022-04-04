@@ -1,4 +1,5 @@
-﻿using TransCare.Interfaces;
+﻿using TransCare.Entities;
+using TransCare.Interfaces;
 using TransCare.Services.Abstractions;
 
 namespace TransCare.Services

@@ -1,4 +1,6 @@
-﻿namespace TransCare.Services.Abstractions
+﻿using TransCare.Entities;
+
+namespace TransCare.Services.Abstractions
 {
     public interface IHealthProviderService
     {
