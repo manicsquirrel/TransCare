@@ -1,8 +1,8 @@
 <div class="surface-section">
   <div class="font-medium text-3xl text-900 mb-3">Healthcare Providers</div>
-  <div class="text-500 mb-5">by State</div>
-  <p-table [value]="providers" sortField="state" sortMode="single" [scrollable]="false" rowGroupMode="subheader"
-    groupRowsBy="state" id="providerTable">
+  <div class="text-500 mb-5">by State on {{currentDateTime}}</div>
+  <p-table [value]="providers" sortField="stateName" sortMode="single" [scrollable]="false" rowGroupMode="subheader"
+    groupRowsBy="stateName" id="providerTable">
     <ng-template pTemplate="caption">
       <div class="p-d-flex">
         <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
@@ -20,14 +20,14 @@
     <ng-template pTemplate="groupheader" let-provider>
       <tr pRowGroupHeader>
         <td colspan="4">
-          <span class="p-text-bold p-ml-2">{{provider.state}}</span>
+          <span class="p-text-bold p-ml-2">{{provider.stateName}}</span>
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="groupfooter" let-provider>
       <tr class="p-rowgroup-footer">
         <td colspan="4">
-          <div style="text-align: right; width: 100%">Total Providers: {{calculateStateTotal(provider.state)}}</div>
+          <div style="text-align: right; width: 100%">Total Providers: {{calculateStateTotal(provider.stateName)}}</div>
         </td>
       </tr>
     </ng-template>

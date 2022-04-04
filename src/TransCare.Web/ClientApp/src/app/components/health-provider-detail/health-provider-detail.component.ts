@@ -27,7 +27,8 @@ export class HealthProviderDetailComponent implements OnInit {
     healthProvider.providerName="Dr. Bob Bivens";
     healthProvider.street='123 Street Rd';
     healthProvider.city='Citytown';
-    healthProvider.state='TN';
+    healthProvider.stateCode='TN';
+    healthProvider.stateName='Tennessee';
     healthProvider.zipCode='77777';
     healthProvider.phone='8885551212';
     healthProvider.email='user@domain.com';

@@ -28,6 +28,7 @@ import { HealthProviderNearMeComponent } from './components/health-provider-near
 import { HealthProviderReportComponent } from './components/health-provider-report/health-provider-report.component';
 import { CommonModule } from '@angular/common';
 import {CardModule} from 'primeng/card';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,7 @@ import {CardModule} from 'primeng/card';
     ButtonModule,
     CardModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

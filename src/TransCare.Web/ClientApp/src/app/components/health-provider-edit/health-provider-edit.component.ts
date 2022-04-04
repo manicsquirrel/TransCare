@@ -53,7 +53,7 @@ export class HealthProviderEditComponent implements OnInit {
       providerName: this.healthProvider.providerName,
       street: this.healthProvider.street,
       city: this.healthProvider.city,
-      state: this.healthProvider.state,
+      state: this.healthProvider.stateCode,
       zipCode: this.healthProvider.zipCode,
       phone: this.healthProvider.phone,
       email: this.healthProvider.email,

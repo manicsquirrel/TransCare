@@ -1,4 +1,4 @@
-﻿using TransCare.Entities;
+﻿using TransCare.Models;
 
 namespace TransCare.Interfaces
 {

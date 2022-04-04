@@ -1,3 +1,5 @@
+import { State } from "./state";
+
 export class HealthProvider {
   id: number = 0;
   email: string = '';
@@ -8,7 +10,8 @@ export class HealthProvider {
   phone: string = '';
   url: string = '';
   city: string = '';
-  state: string = '';
+  stateCode?: string;
+  stateName?: string;
   street: string = '';
   zipCode: string = '';
 }

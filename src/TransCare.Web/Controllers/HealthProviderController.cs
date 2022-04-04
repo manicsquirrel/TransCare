@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
-using TransCare.Entities;
+using TransCare.Models;
 using TransCare.Services.Abstractions;
 using TransCare.Web.Pages;
+using AutoMapper;
+using TransCare.Web.Models.Responses;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TransCare.Web.Controllers
 {
@@ -12,10 +15,12 @@ namespace TransCare.Web.Controllers
     public class HealthProviderController : Controller
     {
         private readonly IHealthProviderService _healthProviderService;
+        private readonly IMapper _mapper;
 
-        public HealthProviderController(IHealthProviderService healthProviderService)
+        public HealthProviderController(IHealthProviderService healthProviderService, IMapper mapper)
         {
             _healthProviderService = healthProviderService;
+            _mapper = mapper;
         }
 
         [HttpGet("search")]
@@ -26,7 +31,7 @@ namespace TransCare.Web.Controllers
         {
             try
             {
-                return Ok(_healthProviderService.GetFiltered(query));
+                return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>(_healthProviderService.GetFiltered(query)));
             }
             catch (Exception ex)
             {
@@ -42,7 +47,7 @@ namespace TransCare.Web.Controllers
         {
             try
             {
-                return Ok(_healthProviderService.GetAll());
+                return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>(_healthProviderService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -59,7 +64,7 @@ namespace TransCare.Web.Controllers
         {
             try
             {
-                return Ok(_healthProviderService.Get(id));
+                return Ok(_mapper.Map<HealthProvider, HealthProviderResponse>(_healthProviderService.Get(id)));
             }
             catch (Exception ex)
             {
@@ -77,7 +82,7 @@ namespace TransCare.Web.Controllers
             if (request == null) return BadRequest("Invalid save request. Request body null or empty");
             try
             {
-                return Ok(_healthProviderService.Save(request));
+                return Ok(_mapper.Map<HealthProvider, HealthProviderResponse>(_healthProviderService.Save(request)));
             }
             catch (Exception ex)
             {

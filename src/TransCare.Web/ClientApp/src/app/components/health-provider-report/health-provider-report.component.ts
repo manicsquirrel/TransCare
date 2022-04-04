@@ -4,6 +4,7 @@ import { HealthProviderService } from 'src/app/services/provider.service';
 import jspdf from 'jspdf';
 import 'jspdf-autotable';
 import autoTable from 'jspdf-autotable';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-health-provider-report',
@@ -13,29 +14,32 @@ import autoTable from 'jspdf-autotable';
 export class HealthProviderReportComponent implements OnInit {
 
   public providers: any[] = [];
+  currentDateTime: any;
 
-  constructor(private healthProviderService: HealthProviderService) { }
+  constructor(private healthProviderService: HealthProviderService, private datePipe: DatePipe) {
+    this.currentDateTime = this.datePipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
+  }
 
   async ngOnInit(): Promise<void> {
     this.providers = await this.healthProviderService.getAll();
     console.log(this.providers);
   }
 
-  calculateStateTotal(stateCode: string) {
-    if (!this.providers || !stateCode) return 0;
-    return this.providers.filter(p => p.state === stateCode).length;
+  calculateStateTotal(stateName: string) {
+    if (!this.providers || !stateName) return 0;
+    return this.providers.filter(p => p.stateName === stateName).length;
   }
 
   exportPdf(): void {
 
     const doc = new jspdf();
     autoTable(doc, {
-      columns:[
-        {header: 'Name', dataKey: 'providerName'},
-        {header: 'Street', dataKey: 'street'},
-        {header: 'City', dataKey: 'city'},
-        {header: 'State', dataKey: 'state'},
-        {header: 'Zip', dataKey: 'zipCode'}
+      columns: [
+        { header: 'Name', dataKey: 'providerName' },
+        { header: 'Street', dataKey: 'street' },
+        { header: 'City', dataKey: 'city' },
+        { header: 'State', dataKey: 'state' },
+        { header: 'Zip', dataKey: 'zipCode' }
       ],
       body: this.providers,
       showHead: 'firstPage'

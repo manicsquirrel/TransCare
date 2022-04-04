@@ -1,6 +1,6 @@
-﻿namespace TransCare.Models
+﻿namespace TransCare.Data.Entities
 {
-    public class HealthProvider
+    public class HealthProviderData
     {
         public int Id { get; set; }
 
@@ -20,7 +20,7 @@
 
         public string City { get; set; }
 
-        public State State { get; set; }
+        public string State { get; set; }
 
         public string Street { get; set; }
 

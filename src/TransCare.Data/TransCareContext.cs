@@ -1,18 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TransCare.Entities;
+using TransCare.Data.Entities;
 
 namespace TransCare.Data
 {
     public class TransCareContext : DbContext
     {
-        
         public TransCareContext(DbContextOptions<TransCareContext> options)
             : base(options)
         {
         }
 
-        public DbSet<HealthProvider> HealthProviders { get; set; }
-        public DbSet<State> States { get; set; }
+        public DbSet<HealthProviderData> HealthProviders { get; set; }
+        public DbSet<StateData> States { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
