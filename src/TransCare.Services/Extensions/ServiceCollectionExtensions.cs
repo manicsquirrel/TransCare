@@ -14,7 +14,8 @@ namespace TransCare.Services.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<IProviderService, ProviderService>();
+            services.AddScoped<IHealthProviderService, HealthProviderService>();
+            services.AddScoped<IStateService, StateService>();
             return services;
         }
     }

@@ -3,14 +3,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore;
 using System;
+using TransCare.Data.Entities;
+using System.Reflection.Emit;
 
 namespace TransCare.Data.Configurations
 {
-    public partial class ProviderConfiguration : IEntityTypeConfiguration<Provider>
+    public  class ProviderConfiguration : IEntityTypeConfiguration<HealthProviderData>
     {
-        public void Configure(EntityTypeBuilder<Provider> entity)
+        public void Configure(EntityTypeBuilder<HealthProviderData> entity)
         {
-            entity.ToTable("Provider");
+            entity.ToTable("HealthProvider");            
 
             entity.Property(e => e.City)
                 .IsRequired()
@@ -39,6 +41,7 @@ namespace TransCare.Data.Configurations
                 .IsUnicode(false);
 
             entity.Property(e => e.State)
+                .HasColumnName("State")
                 .IsRequired()
                 .HasMaxLength(2)
                 .IsUnicode(false);
@@ -57,9 +60,9 @@ namespace TransCare.Data.Configurations
                 .HasMaxLength(5)
                 .IsUnicode(false);
 
-            OnConfigurePartial(entity);
+            //OnConfigurePartial(entity);
         }
 
-        partial void OnConfigurePartial(EntityTypeBuilder<Provider> entity);
+        //partial void OnConfigurePartial(EntityTypeBuilder<HealthProviderData> entity);
     }
 }

@@ -1,3 +1,5 @@
+using AutoMapper;
+using System.Reflection;
 using TransCare.Data;
 using TransCare.Data.Extensions;
 using TransCare.Services.Extensions;
@@ -5,7 +7,7 @@ using TransCare.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDataServices(builder.Configuration);
-//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddApplicationServices();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerServices();

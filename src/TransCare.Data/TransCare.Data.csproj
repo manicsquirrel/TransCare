@@ -1,9 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TransCare\TransCare.csproj" />
+    <Folder Include="REST\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TransCare.Data.Abstractions\TransCare.Data.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@ import { HealthProvider } from 'src/app/models/health-provider';
 @Component({
   selector: 'app-provider-list',
   templateUrl: './provider-list.component.html',
-  styleUrls: ['./provider-list.component.css']
+  styleUrls: ['./provider-list.component.scss']
 })
 export class ProviderListComponent {
 

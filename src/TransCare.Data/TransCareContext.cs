@@ -1,38 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TransCare.Data.Entities;
 
 namespace TransCare.Data
 {
     public class TransCareContext : DbContext
     {
-        //public TransCareContext()
-        //{
-        //}
-
         public TransCareContext(DbContextOptions<TransCareContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Provider> Providers { get; set; }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured) {
-        //        //optionsBuilder.UseSqlServer("TransCareDatabase");
-        //        optionsBuilder.UseSqlServer("Data Source=pglaptop262;Initial Catalog=OpenTrans;Integrated Security=True");
-
-        //    }
-        //}
+        public DbSet<HealthProviderData> HealthProviders { get; set; }
+        public DbSet<StateData> States { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
-            //modelBuilder.ApplyConfiguration(new Configurations.ProviderConfiguration());
-            //OnModelCreatingPartial(modelBuilder);
-            modelBuilder.Entity<Provider>().ToTable("Provider");
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TransCareContext).Assembly);
         }
-
-        //private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
