@@ -24,25 +24,14 @@ export class HealthProviderDetailComponent implements OnInit {
 
   async setHealthProvider(): Promise<void> {
     let healthProvider = new HealthProvider;
-    healthProvider.providerName="Dr. Bob Bivens";
-    healthProvider.street='123 Street Rd';
-    healthProvider.city='Citytown';
-    healthProvider.stateCode='TN';
-    healthProvider.stateName='Tennessee';
-    healthProvider.zipCode='77777';
-    healthProvider.phone='8885551212';
-    healthProvider.email='user@domain.com';
-    healthProvider.url='https://google.com'
-    healthProvider.notes='sdfhkshfkshfkd';
-    // const id = Number(this.route.snapshot.paramMap.get('id'));
-    // if (id) {
-    //   healthProvider = await this.providerService.get(id);
-    // }
-     await this.loadProvider(healthProvider);
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (id) {
+      healthProvider = await this.providerService.get(id);
+    }
+    await this.loadProvider(healthProvider);
   }
 
   async loadProvider(healthProvider: HealthProvider) {
     this.healthProvider = healthProvider;
-    console.log(this.healthProvider);
   }
 }

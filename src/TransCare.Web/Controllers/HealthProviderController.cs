@@ -25,7 +25,7 @@ namespace TransCare.Web.Controllers
 
         [HttpGet("search")]
         [Produces("application/json")]
-        [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProvider>))]
+        [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProviderResponse>))]
         [SwaggerResponse(500, "Internal server error")]
         public IActionResult Search(string query)
         {
@@ -41,7 +41,7 @@ namespace TransCare.Web.Controllers
 
         [HttpGet("list")]
         [Produces("application/json")]
-        [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProvider>))]
+        [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProviderResponse>))]
         [SwaggerResponse(500, "Internal server error")]
         public IActionResult Get()
         {
@@ -57,7 +57,7 @@ namespace TransCare.Web.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-        [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProvider>))]
+        [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProviderResponse>))]
         [SwaggerResponse(404, "Health provider not found.")]
         [SwaggerResponse(500, "Internal server error")]
         public IActionResult Get(int id)
@@ -74,15 +74,16 @@ namespace TransCare.Web.Controllers
 
         [HttpPost("save")]
         [Produces("application/json")]
-        [SwaggerResponse(201, "Inserts or updates a health provider", typeof(HealthProvider))]
+        [SwaggerResponse(201, "Inserts or updates a health provider", typeof(HealthProviderResponse))]
         [SwaggerResponse(400, "Bad request. Invalid parameter.")]
         [SwaggerResponse(500, "Internal server error")]
-        public IActionResult Create([FromBody] HealthProvider request)
+        public IActionResult Create([FromBody] HealthProviderRequest request)
         {
             if (request == null) return BadRequest("Invalid save request. Request body null or empty");
             try
             {
-                return Ok(_mapper.Map<HealthProvider, HealthProviderResponse>(_healthProviderService.Save(request)));
+                var provider = _mapper.Map<HealthProviderRequest, HealthProvider>(request);
+                return Ok(_mapper.Map<HealthProvider, HealthProviderResponse>(_healthProviderService.Save(provider)));
             }
             catch (Exception ex)
             {

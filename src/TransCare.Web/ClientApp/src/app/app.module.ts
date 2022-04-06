@@ -5,12 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
-import { CounterComponent } from './components/counter/counter.component';
-import { FetchDataComponent } from './components/fetch-data/fetch-data.component';
-import { ProviderListComponent } from './components/provider-list/provider-list.component';
-import { ProviderFilterComponent } from './components/provider-filter/provider-filter.component';
-import { ProviderSearchComponent } from './components/provider-search/provider-search.component';
-import { ProviderReportComponent } from './components/provider-report/provider-report.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataViewModule } from 'primeng/dataview';
@@ -26,21 +20,21 @@ import { HealthProviderSearchBoxComponent } from './components/health-provider-s
 import { HealthProviderSearchResultComponent } from './components/health-provider-search-result/health-provider-search-result.component';
 import { HealthProviderNearMeComponent } from './components/health-provider-near-me/health-provider-near-me.component';
 import { HealthProviderReportComponent } from './components/health-provider-report/health-provider-report.component';
-import { CommonModule } from '@angular/common';
-import {CardModule} from 'primeng/card';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { CardModule } from 'primeng/card';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { MessageModule } from 'primeng/message';
+import {InputMaskModule} from 'primeng/inputmask';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
-    ProviderListComponent,
-    ProviderFilterComponent,
-    ProviderSearchComponent,
-    ProviderReportComponent,
     HealthProviderEditComponent,
     HealthProviderDetailComponent,
     HealthProviderSearchBoxComponent,
@@ -62,7 +56,11 @@ import { DatePipe } from '@angular/common';
     TableModule,
     ProgressBarModule,
     ButtonModule,
-    CardModule
+    CardModule,
+    DropdownModule,
+    InputSwitchModule,
+    MessageModule,
+    InputMaskModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

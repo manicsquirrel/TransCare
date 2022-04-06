@@ -4,11 +4,11 @@ using TransCare.Services.Abstractions;
 
 namespace TransCare.Services
 {
-    public class ProviderService : IHealthProviderService
+    public class HealthProviderService : IHealthProviderService
     {
         private readonly IProviderRepository _providerRepository;
 
-        public ProviderService(IProviderRepository providerRepository) => _providerRepository = providerRepository;
+        public HealthProviderService(IProviderRepository providerRepository) => _providerRepository = providerRepository;
 
         public void Delete(int id) => _providerRepository.Delete(id);
 

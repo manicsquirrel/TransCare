@@ -36,7 +36,7 @@ namespace TransCare.Data
                     || p.Street.Contains(query));
 
         public HealthProvider Save(HealthProvider provider)
-        {
+        {            
             var entity = _transCareContext.HealthProviders.FirstOrDefault(p => p.Id == provider.Id);
             if (entity == null)
             {
@@ -45,7 +45,7 @@ namespace TransCare.Data
             }
             else
             {
-                _transCareContext.Entry(entity).CurrentValues.SetValues(provider);
+                _transCareContext.Entry(entity).CurrentValues.SetValues(Map(provider));
             }
             _transCareContext.SaveChanges();
             return Map(entity, _transCareContext.States);
@@ -89,8 +89,9 @@ namespace TransCare.Data
                 ZipCode = provider.ZipCode
             };
 
-        private static HealthProvider Map(HealthProviderData provider, IQueryable<StateData> states) =>
-            new()
+        private static HealthProvider Map(HealthProviderData provider, IQueryable<StateData> states)
+        {
+            return new()
             {
                 Id = provider.Id,
                 Email = provider.Email,
@@ -104,12 +105,14 @@ namespace TransCare.Data
                 State = new State
                 {
                     Code = provider.State,
-                    Name = states
-                        .FirstOrDefault(s => s.Code.Equals(provider.State, StringComparison.OrdinalIgnoreCase))
-                        .Name
+                    Name = states.ToList().Where(s => string.Compare(s.Code, provider.State, true) == 0)
+                        .FirstOrDefault()
+                        ?.Name
+                        ?? ""
                 },
                 Street = provider.Street,
                 ZipCode = provider.ZipCode
             };
+        }
     }
 }

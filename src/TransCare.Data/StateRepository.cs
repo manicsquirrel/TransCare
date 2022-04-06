@@ -17,7 +17,7 @@ namespace TransCare.Data
             Map(_transCareContext.States.Single(s => s.Code == code));
 
         public IEnumerable<State> GetAll() =>
-            Map(_transCareContext.States);
+            Map(_transCareContext.States).OrderBy(s=>s.Name);
 
         private IEnumerable<State> Map(IQueryable<StateData> stateData)
         {
