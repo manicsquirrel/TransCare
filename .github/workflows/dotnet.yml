@@ -22,28 +22,28 @@ jobs:
     - name: Build
       run: |        
         dotnet build --configuration Release --no-restore
-        dotnet publish -c Release -o ./trans-care-app -r win-x86 -f net6.0 --self-contained true 
-    - name: Test
-      run: dotnet test --no-build --verbosity normal  
+        dotnet publish -c Release -o ./trans-care-app -r win-x64 -f net6.0 --self-contained true 
+    #- name: Test
+      #run: dotnet test --no-build --verbosity normal  
+      
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3
       with:
         name: trans-care-artifact
         path: ./trans-care-app
-    - name: ftp-action
-        # You may pin to the exact commit or the version.
-        # uses: sebastianpopp/ftp-action@eb75c5cb29d23ee4a729720a27dfb66403cb0f6d
-      uses: sebastianpopp/ftp-action@v2.0.0
+        
+    - name: FTP Deployer
+      uses: sand4rt/ftp-deployer@v1.3
       with:
-        # FTP host
-        host: ${{ secrets.FTP_SERVER }}
-        # FTP user
-        user: ${{ secrets.FTP_USERNAME }}
-        # FTP password
-        password: ${{ secrets.FTP_PASSWORD }}
-        # Force SSL encryption
-        #forceSsl: # optional, default is false
-        # Local directory
-        localDir: ./trans-care-app
-        # Remote directory
-        #remoteDir: # optional, default is .
+        sftp: false # optional
+        host: ${{ secrets.FTP_SERVER }} # e.g. ftp.host.com or sftp.host.com (without ftp:// or ftps://)
+        port: 21 # optional, default is: 21
+        username: ${{ secrets.FTP_USERNAME }} # FTP username
+        password: ${{ secrets.FTP_PASSWORD }} # FTP password
+        remote_folder: ${{ secrets.FTP_REMOTE_FOLDER }} # optional, remote path of your FTP server
+        local_folder: ./trans-care-app # optional, local path, default is: dist
+        cleanup: true # optional, remove existing files inside FTP remote folder
+        # include: [] # optional, e.g. ['dist']
+        # exclude: [] # optional, e.g. ['node_modules/**', '.git/**', '*.env']
+        pasive: true # optional    
+        
