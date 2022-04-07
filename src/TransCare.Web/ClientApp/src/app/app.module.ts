@@ -25,9 +25,9 @@ import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MessageModule } from 'primeng/message';
-import {InputMaskModule} from 'primeng/inputmask';
-
-
+import { InputMaskModule } from 'primeng/inputmask';
+import { RippleModule } from 'primeng/ripple';
+import { MenuModule } from 'primeng/menu';
 
 
 @NgModule({
@@ -60,7 +60,9 @@ import {InputMaskModule} from 'primeng/inputmask';
     DropdownModule,
     InputSwitchModule,
     MessageModule,
-    InputMaskModule
+    InputMaskModule,
+    RippleModule,
+    MenuModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

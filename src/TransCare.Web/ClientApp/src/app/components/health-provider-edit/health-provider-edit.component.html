@@ -46,8 +46,7 @@
 
       <div class="field mb-4 col-12 md:col-6">
         <label for="zipCodeInput" class="font-medium text-900">Zip</label>
-        <p-inputMask mask="99999" [autoClear]="false" [unmask]="true" id="zipCodeInput" placeholder="99999"
-          formControlName="zipCode"
+        <p-inputMask mask="99999" [unmask]="true" id="zipCodeInput" placeholder="99999" formControlName="zipCode"
           [ngClass]="{ 'is-invalid': form.controls.zipCode?.invalid && form.controls.zipCode.touched }">
         </p-inputMask>
         <div class="invalid-feedback" *ngIf="form.controls.zipCode?.errors?.required">
@@ -57,8 +56,8 @@
 
       <div class="field mb-4 col-12 md:col-6">
         <label for="phoneInput" class="font-medium text-900">Phone</label>
-        <p-inputMask mask="(999) 999-9999" [autoClear]="false" [unmask]="true" id="phoneInput"
-          placeholder="(999) 999-9999" formControlName="phone"
+        <p-inputMask mask="(999) 999-9999" [unmask]="true" id="phoneInput" placeholder="(999) 999-9999"
+          formControlName="phone"
           [ngClass]="{ 'is-invalid': form.controls.phone?.invalid && form.controls.phone.touched }">
         </p-inputMask>
         <div class="invalid-feedback" *ngIf="form.controls.phone?.errors?.required">
@@ -95,18 +94,15 @@
 
       <div class="surface-border border-top-1 opacity-50 mb-3 col-12"></div>
 
-
       <div class="flex flex-row card-container yellow-container col-12">
-        <div
-          class="flex align-items-center justify-content-center">
-          <button pButton pRipple label="Cancel" class="p-button-outlined mr-2" icon="pi pi-times" routerLink=".."></button>
+        <div class="flex align-items-center justify-content-center">
+          <button type="button" pButton pRipple label="Cancel" class="p-button-outlined mr-2" icon="pi pi-times"
+            (click)="onCancel()"></button>
         </div>
-        <div
-          class="flex align-items-center justify-content-center">
-          <button pButton pRipple label="Save Provider" icon="pi pi-check" type="submit" [disabled]="!form.valid"
-            [ngClass]="form.invalid ? 'btn-danger' : 'btn-primary'"></button>
+        <div class="flex align-items-center justify-content-center">
+          <button pButton pRipple label="Save Provider" icon="pi pi-check" type="submit"
+            [disabled]="!form.valid" [ngClass]="form.invalid ? 'btn-danger' : 'btn-primary'"></button>
         </div>
-
       </div>
     </div>
   </div>

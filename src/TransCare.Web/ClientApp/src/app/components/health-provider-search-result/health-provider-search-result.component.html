@@ -1,42 +1,73 @@
-<div class="p-2 col-12 md:col-4">
-  <google-map height="300px" width="100%" [zoom]="zoom" [center]="center" [options]="options"></google-map>
-</div>
-<div class="p-2 col-12 md:col-4">
-  <app-health-provider-search-box (textChange)="onTextChange($event)"></app-health-provider-search-box>
-</div>
-<div class="p-2 col-12 md:col-4">
-  <ng-container *ngIf="(providers$ | async) as providers">
-    <p-table [value]="providers">
-      <ng-template pTemplate="caption">
-        <div class="flex justify-content-between flex-wrap">
-          <div class="flex flex-grow align-items-center justify-content-center">Providers</div>
-          <div class="flex align-items-center justify-content-center">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/new']">
-            </button>
-          </div>
+<div class="p2">
+  <div class="surface-card p-4 shadow-2 border-round">
+
+    <div class="container">
+      <div class="card-container blue-container">
+        <div class="flex">
+          <app-health-provider-search-box class="align-items-center justify-content-between w-full pr-4"
+            (textChange)="onTextChange($event)">
+          </app-health-provider-search-box>
+          <button class="align-items-center justify-content-center" style="width: 150px;" pButton pRipple label="New"
+            icon="pi pi-plus" class="p-button-success" [routerLink]="['/new']">
+          </button>
         </div>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Name</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Zip Code</th>
-          <th>Phone</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-provider>
-        <tr class="selectable-row" [routerLink]="['/edit', provider.id]">
-          <td>{{ provider.providerName }}</td>
-          <td>{{ provider.city }}</td>
-          <td>{{ provider.stateCode }}</td>
-          <td>{{ provider.zipCode }}</td>
-          <td>{{ provider.phone }}</td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="empty">
-        No results...
-      </ng-template>
-    </p-table>
-  </ng-container>
+      </div>
+
+      <div class="w-full py-2">
+        <div class="surface-card shadow-2 border-round p-4">
+          <ng-container *ngIf="(providers$ | async) as providers; else noResults">
+            <ul class="list-none p-0 m-0" *ngFor="let provider of providers;">
+              <li
+                class="flex flex-column md:flex-row md:align-items-center md:justify-content-between p-3 border-1 mb-3"
+                style="border-radius: 10px; border-color: rgba(234,179,10,.5);">
+                <div class="flex selectable-row" [routerLink]="['/detail', provider.id]">
+                  <div class="mr-0 md:mr-8">
+                    <span class="block text-900 font-medium mb-1">{{ provider.providerName }}</span>
+                    <div class="text-600">
+                      <address>
+                        {{ provider.street }} <br />
+                        {{ provider.city }}, {{ provider.stateCode }} {{ provider.zipCode }} <br />
+                        <span *ngIf="provider.phone">{{ getPhoneDisplay(provider.phone) }}</span>
+                      </address>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2 md:mt-0 flex flex-nowrap">
+                  <a *ngIf="provider.phone" class="buttonLink" id="buttonPhone" href="{{ getPhoneLink(provider.phone) }}">
+                    <button pbutton="" pripple="" icon="pi pi-phone"
+                      class="p-element p-ripple p-button-text p-button-plain p-button-rounded mr-1 p-button p-component p-button-icon-only">
+                      <span class="p-button-icon pi pi-phone" aria-hidden="true"> </span>
+                      <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+                      <span class="p-ink"></span>
+                    </button>
+                  </a>
+                  <a *ngIf="provider.email" class="buttonLink" id="buttonEmail" href="mailto:{{ provider.email }}"
+                    target="_blank">
+                    <button pbutton="" pripple="" icon="pi pi-send"
+                      class="p-element p-ripple p-button-text p-button-plain p-button-rounded mr-1 p-button p-component p-button-icon-only">
+                      <span class="p-button-icon pi pi-send" aria-hidden="true"> </span>
+                      <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+                      <span class="p-ink"></span>
+                    </button>
+                  </a>
+                  <a *ngIf="provider.url" class="buttonLink" id="buttonUrl" href="{{ getFormattedUrl(provider.url) }}"
+                    target="_blank">
+                    <button pbutton="" pripple="" icon="pi pi-external-link"
+                      class="p-element p-ripple p-button-text p-button-plain p-button-rounded mr-1 p-button p-component p-button-icon-only">
+                      <span class="p-button-icon pi pi-external-link" aria-hidden="true"></span>
+                      <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+                      <span class="p-ink"></span>
+                    </button>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </ng-container>
+          <ng-template #noResults>
+            <span>No results...</span>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
