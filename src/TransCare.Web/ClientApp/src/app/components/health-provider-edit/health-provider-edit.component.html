@@ -1,0 +1,113 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="healthProvider; else loading" class="p-2 needs-validation">
+  <div class="surface-card p-4 shadow-2 border-round" [ngClass]="form.invalid ? 'border-1 border-danger' : ''">
+    <div class="grid formgrid p-fluid">
+
+      <div class="field mb-4 col-12">
+        <label for="providerNameInput" class="font-medium text-900">Provider Name</label>
+        <input id="providerNameInput" formControlName="providerName" type="text" pinputtext=""
+          class="p-inputtext p-component p-element"
+          [ngClass]="{ 'is-invalid': form.controls.providerName?.invalid && form.controls.providerName.touched }">
+        <div class="invalid-feedback" *ngIf="form.controls.providerName?.errors?.required">
+          *required
+        </div>
+      </div>
+
+      <div class="surface-border border-top-1 opacity-50 mb-3 col-12"></div>
+
+      <div class="field mb-4 col-12 md:col-6">
+        <label for="streetInput" class="font-medium text-900">Address</label>
+        <input id="streetInput" formControlName="street" type="text" pinputtext=""
+          class="p-inputtext p-component p-element"
+          [ngClass]="{ 'is-invalid': form.controls.street?.invalid && form.controls.street.touched }">
+        <div class="invalid-feedback" *ngIf="form.controls.street?.errors?.required">
+          *required
+        </div>
+      </div>
+
+      <div class="field mb-4 col-12 md:col-6">
+        <label for="cityInput" class="font-medium text-900">City</label>
+        <input id="cityInput" formControlName="city" type="text" pinputtext="" class="p-inputtext p-component p-element"
+          [ngClass]="{ 'is-invalid': form.controls.city?.invalid && form.controls.city.touched }">
+        <div class="invalid-feedback" *ngIf="form.controls.city?.errors?.required">
+          *required
+        </div>
+      </div>
+
+      <div class="field mb-4 col-12 md:col-6">
+        <label for="stateInput" class="font-medium text-900">State</label>
+        <p-dropdown [options]="stateOptions" formControlName="state" optionLabel="name" optionValue="code"
+          [ngClass]="{ 'is-invalid': form.controls.state?.invalid && form.controls.state.touched }">
+
+        </p-dropdown>
+        <div class="invalid-feedback" *ngIf="form.controls.state?.errors?.required">
+          *required
+        </div>
+      </div>
+
+      <div class="field mb-4 col-12 md:col-6">
+        <label for="zipCodeInput" class="font-medium text-900">Zip</label>
+        <p-inputMask mask="99999" [unmask]="true" id="zipCodeInput" placeholder="99999" formControlName="zipCode"
+          [ngClass]="{ 'is-invalid': form.controls.zipCode?.invalid && form.controls.zipCode.touched }">
+        </p-inputMask>
+        <div class="invalid-feedback" *ngIf="form.controls.zipCode?.errors?.required">
+          *required
+        </div>
+      </div>
+
+      <div class="field mb-4 col-12 md:col-6">
+        <label for="phoneInput" class="font-medium text-900">Phone</label>
+        <p-inputMask mask="(999) 999-9999" [unmask]="true" id="phoneInput" placeholder="(999) 999-9999"
+          formControlName="phone"
+          [ngClass]="{ 'is-invalid': form.controls.phone?.invalid && form.controls.phone.touched }">
+        </p-inputMask>
+        <div class="invalid-feedback" *ngIf="form.controls.phone?.errors?.required">
+          *required
+        </div>
+      </div>
+
+      <div class="field mb-4 col-12 md:col-6">
+        <label for="emailInput" class="font-medium text-900">Email</label>
+        <input id="emailInput" formControlName="email" type="text" pinputtext=""
+          class="p-inputtext p-component p-element">
+      </div>
+
+      <div class="surface-border border-top-1 opacity-50 mb-3 col-12"></div>
+
+      <div class="field mb-4 col-12">
+        <label for="urlInput" class="font-medium text-900">Website</label>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">www</span>
+          <input id="urlInput" formControlName="url" type="text" pinputtext=""
+            class="p-inputtext p-component p-element">
+        </div>
+      </div>
+
+      <div class="surface-border border-top-1 opacity-50 mb-3 col-12"></div>
+
+      <div class="field mb-4 col-12">
+        <label for="notesTextArea" class="font-medium text-900">Notes</label>
+        <textarea id="notesTextArea" formControlName="notes" type="text" pinputtextarea="" rows="5"
+          class="p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+          style="height: 131px; overflow: hidden;">
+              </textarea>
+      </div>
+
+      <div class="surface-border border-top-1 opacity-50 mb-3 col-12"></div>
+
+      <div class="flex flex-row card-container yellow-container col-12">
+        <div class="flex align-items-center justify-content-center">
+          <button type="button" pButton pRipple label="Cancel" class="p-button-outlined mr-2" icon="pi pi-times"
+            (click)="onCancel()"></button>
+        </div>
+        <div class="flex align-items-center justify-content-center">
+          <button pButton pRipple label="Save Provider" icon="pi pi-check" type="submit"
+            [disabled]="!form.valid" [ngClass]="form.invalid ? 'btn-danger' : 'btn-primary'"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #loading>
+  Loading provider...
+</ng-template>
