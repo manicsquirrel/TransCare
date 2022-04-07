@@ -22,7 +22,7 @@ jobs:
     - name: Build
       run: |        
         dotnet build --configuration Release --no-restore
-        dotnet publish -c Release -o ./trans-care-app -r win-x64 -f --self-contained true net6.0
+        dotnet publish -c Release -o ./trans-care-app -r win-x64 -f net6.0 --self-contained true 
     - name: Test
       run: dotnet test --no-build --verbosity normal      
     - name: ftp-action
