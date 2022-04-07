@@ -11,17 +11,6 @@ import { HealthProviderService } from 'src/app/services/provider.service';
 })
 export class HealthProviderSearchResultComponent implements OnInit {
 
-  zoom = 12
-  center!: google.maps.LatLngLiteral;
-  options: google.maps.MapOptions = {
-    mapTypeId: 'roadmap',
-    zoomControl: false,
-    scrollwheel: false,
-    disableDoubleClickZoom: true,
-    maxZoom: 15,
-    minZoom: 8,
-  }
-
   searchTerm = new Subject<string>();
   providers$: Observable<HealthProvider[] | null> = this.searchTerm.pipe(
     switchMap(searchTerm => this.healthProviderService.findHealthProviders(searchTerm)),
@@ -38,36 +27,44 @@ export class HealthProviderSearchResultComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUserLocation();
+    // this.getUserLocation();
   }
 
-  getUserLocation() {
-    if (isDevMode()) {
-      this.center = { lat: 35.6376233, lng: -83.9296153 };
-    }
-    else {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-      });
-    }
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition(position => {
-    //     this.latitude = position.coords.latitude;
-    //     this.longitude = position.coords.longitude;
-    //   });
-    // } else { console.log("User not allow") }
+  getFormattedUrl(url: string) {
+    return url.startsWith("http") ? url : `\/\/${url}`;
   }
 
-  zoomIn() {
-    if (!this.options.maxZoom) return;
-    if (this.zoom < this.options.maxZoom) this.zoom++
+  getPhoneLink(phone: string) {
+    var cleaned = ('' + phone).replace(/\D/g, '');
+    var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    return match ?  `tel:+1-${match[1]}-${match[2]}-${match[3]}`: null;
   }
 
-  zoomOut() {
-    if (!this.options.minZoom) return;
-    if (this.zoom > this.options.minZoom) this.zoom--
+  getPhoneDisplay(phone: string) {
+    var cleaned = ('' + phone).replace(/\D/g, '');
+    var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    return match ?  `(${match[1]}) ${match[2]}-${match[3]}`: null;
   }
+
+  // getUserLocation() {
+  //   if (isDevMode()) {
+  //     this.center = { lat: 35.6376233, lng: -83.9296153 };
+  //   }
+  //   else {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       this.center = {
+  //         lat: position.coords.latitude,
+  //         lng: position.coords.longitude
+  //       }
+  //     });
+  //   }
+  //   // if (navigator.geolocation) {
+  //   //   navigator.geolocation.getCurrentPosition(position => {
+  //   //     this.latitude = position.coords.latitude;
+  //   //     this.longitude = position.coords.longitude;
+  //   //   });
+  //   // } else { console.log("User not allow") }
+  // }
+
+
 }

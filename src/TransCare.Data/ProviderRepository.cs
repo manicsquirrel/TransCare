@@ -26,14 +26,18 @@ namespace TransCare.Data
         public IEnumerable<HealthProvider> GetAll() =>
             Map(_transCareContext.HealthProviders, _transCareContext.States);
 
-        public IEnumerable<HealthProvider> GetFiltered(string query) =>
-            Map(_transCareContext.HealthProviders, _transCareContext.States)
+        public IEnumerable<HealthProvider> GetFiltered(string query)
+        {
+            var providers=Map(_transCareContext.HealthProviders, _transCareContext.States)
                 .Where(p => p.ProviderName.Contains(query)
                     || p.Notes.Contains(query)
                     || p.Phone.Contains(query)
                     || p.State.Code.Contains(query)
                     || p.State.Name.Contains(query)
+                    || p.City.Contains(query)
                     || p.Street.Contains(query));
+            return providers;
+        }
 
         public HealthProvider Save(HealthProvider provider)
         {            
