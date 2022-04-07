@@ -29,9 +29,9 @@ jobs:
     - name: Variable Substitution
       uses: microsoft/variable-substitution@v1 
       with:
-          files: '**/appsettings*.json'
+          files: '**/appsettings.json'
       env:
-          TransCareDatabase: ${{ secrets.SQL_CONNECTION_STRING }}
+          ConnectionStrings.TransCareDatabase: ${{ secrets.SQL_CONNECTION_STRING }}
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3
