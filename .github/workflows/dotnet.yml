@@ -20,7 +20,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: |        
+        dotnet build --configuration Release --no-restore
+        dotnet publish -c Release -o ./trans-care-app -r win-x64 -f --self-contained true net6.0
     - name: Test
       run: dotnet test --no-build --verbosity normal      
     - name: ftp-action
@@ -37,6 +39,6 @@ jobs:
         # Force SSL encryption
         #forceSsl: # optional, default is false
         # Local directory
-        #localDir: # optional, default is .
+        localDir: ./trans-care-app
         # Remote directory
         #remoteDir: # optional, default is .
