@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="REST\**" />
+    <EmbeddedResource Remove="REST\**" />
+    <None Remove="REST\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.3" />
@@ -18,10 +24,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="REST\" />
   </ItemGroup>
 
   <ItemGroup>
