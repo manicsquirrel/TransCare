@@ -1,49 +1,49 @@
-﻿using Xunit;
-using TransCare.Web.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoFixture;
+using AutoFixture.AutoMoq;
+using AutoFixture.Xunit2;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using System.Net;
+using TransCare.Services.Abstractions;
+using TransCare.Web.Tests;
+using Xunit;
 
 namespace TransCare.Web.Controllers.Tests
 {
     public class HealthProviderControllerTests
     {
-        [Fact()]
-        public void HealthProviderControllerTest()
+        private HealthProviderController sut;
+
+        public HealthProviderControllerTests()
         {
-            Assert.True(false, "This test needs an implementation");
+            Fixture fixture = new();
+            fixture.Customize(new AutoMoqCustomization());
+            var service = fixture.Freeze<Mock<IHealthProviderService>>();
+            var mapper = fixture.Freeze<Mock<IMapper>>();
+            sut = new HealthProviderController(service.Object, mapper.Object);
         }
 
-        [Fact()]
-        public void SearchTest()
+        [Theory]
+        [AutoMoqData]
+        public void GetById_When_Valid_Returns_Ok(int id)
         {
-            Assert.True(false, "This test needs an implementation");
+            // Act
+            var actualResult = sut.Get(id) as OkObjectResult;
+
+            // Assert
+            Assert.Equal(200, actualResult?.StatusCode);
         }
 
-        [Fact()]
-        public void GetTest()
+        [Theory]
+        [AutoMoqData]
+        public void Search_When_Valid_Returns_Ok(string query)
         {
-            Assert.True(false, "This test needs an implementation");
-        }
+            // Act
+            var actualResult = sut.Search(query) as OkObjectResult;
 
-        [Fact()]
-        public void GetTest1()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public void CreateTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public void DeleteTest()
-        {
-            Assert.True(false, "This test needs an implementation");
+            // Assert
+            Assert.Equal(200, actualResult?.StatusCode);
         }
     }
 }
