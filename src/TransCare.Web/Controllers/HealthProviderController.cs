@@ -7,6 +7,7 @@ using TransCare.Web.Pages;
 using AutoMapper;
 using TransCare.Web.Models.Responses;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Linq;
 
 namespace TransCare.Web.Controllers
 {
@@ -29,9 +30,12 @@ namespace TransCare.Web.Controllers
         [SwaggerResponse(500, "Internal server error")]
         public IActionResult Search(string query)
         {
+            if(string.IsNullOrWhiteSpace(query)) return Ok(new List<HealthProviderResponse>());
+
             try
             {
-                return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>(_healthProviderService.GetFiltered(query)));
+                return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>
+                    (_healthProviderService.GetFiltered(query)));
             }
             catch (Exception ex)
             {
@@ -47,7 +51,8 @@ namespace TransCare.Web.Controllers
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>(_healthProviderService.GetAll()));
+                return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>
+                    (_healthProviderService.GetAll()));
             }
             catch (Exception ex)
             {
@@ -64,7 +69,8 @@ namespace TransCare.Web.Controllers
         {
             try
             {
-                return Ok(_mapper.Map<HealthProvider, HealthProviderResponse>(_healthProviderService.Get(id)));
+                return Ok(_mapper.Map<HealthProvider, HealthProviderResponse>
+                    (_healthProviderService.Get(id)));
             }
             catch (Exception ex)
             {

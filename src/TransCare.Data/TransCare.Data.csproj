@@ -6,26 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
+    <Compile Remove="REST\**" />
+    <EmbeddedResource Remove="REST\**" />
+    <None Remove="REST\**" />
+  </ItemGroup>
+
+  <ItemGroup>
    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="REST\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\TransCare.Data.Abstractions\TransCare.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\TransCare\TransCare.csproj" />
   </ItemGroup>
 
 </Project>
