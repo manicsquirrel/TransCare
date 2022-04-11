@@ -1,4 +1,5 @@
-name: .NET
+#name: .NET
+name: "TransCare - $(date:yyyy.MM.dd)$(rev:.r)"
 
 on:
   push:
@@ -6,7 +7,7 @@ on:
     branches: [ main ]
     paths-ignore:
     - 'README.md'
-
+    
 jobs:
   build:
 
@@ -20,8 +21,19 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+        
     - name: Restore dependencies
       run: dotnet restore
+      
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+      
     - name: Build
       run: |   
         # cd /home/runner/work/TransCare/TransCare/src/TransCare.Web
