@@ -24,8 +24,8 @@ jobs:
         dotnet build --configuration Release --no-restore
         dotnet publish -c Release -o ./trans-care-app -r win-x64 -f net6.0 --self-contained true 
     
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    #- name: Test
+      #run: dotnet test --no-build --verbosity normal
     
     - name: Variable Substitution
       uses: microsoft/variable-substitution@v1 
