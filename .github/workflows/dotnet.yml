@@ -20,7 +20,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: |        
+      run: |   
+        cd ./src/transcare.web
         dotnet build --configuration Release --no-restore
         dotnet publish -c Release -o ./trans-care-app -r win-x64 -f net6.0 --self-contained true 
     
