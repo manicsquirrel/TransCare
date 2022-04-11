@@ -2,9 +2,10 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
+    paths-ignore:
+    - 'README.md'
 
 jobs:
   build:
@@ -13,18 +14,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: |   
         # cd /home/runner/work/TransCare/TransCare/src/TransCare.Web
-        cd /TransCare/src/TransCare.Web
-        dotnet build --configuration Release --no-restore
-        dotnet publish -c Release -o ./trans-care-app -r win-x64 -f net6.0 --self-contained true 
+        cd ../../TransCare/TransCare/src/TransCare.Web
+        # dotnet build "TransCare.Web.csproj" --configuration Release --no-restore
+        dotnet publish "TransCare.Web.csproj" -c Release -o ./trans-care-app -r win-x64 -f net6.0 --self-contained true 
     
     #- name: Test
       #run: dotnet test --no-build --verbosity normal
