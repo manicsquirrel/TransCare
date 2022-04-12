@@ -14,17 +14,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCare.Web", "src\TransCare.Web\TransCare.Web.csproj", "{A2A3AD85-9D9D-404D-8D46-269BD1099F7E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{29F60B4E-7FB7-42E4-9E3F-767909D456AF}"
+	ProjectSection(SolutionItems) = preProject
+		ReadeMe.md = ReadeMe.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4F10E395-39AA-4518-9C28-56166AA8E52A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCare.Services.Tests", "tests\TransCare.Services.Tests\TransCare.Services.Tests.csproj", "{7C621F43-D5E8-448F-B6F0-E24F443520EC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCare.Web.Tests", "tests\TransCare.Web.Tests\TransCare.Web.Tests.csproj", "{395F457A-1AE1-46AC-9366-7F2EFDBDB16B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{493FC4F6-2DB2-4879-B9B2-973A05709DC1}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
