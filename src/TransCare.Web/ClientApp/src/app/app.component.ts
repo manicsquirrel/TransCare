@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -11,6 +12,6 @@ export class AppComponent {
     this.primengConfig.ripple = true;
   }
 
-  constructor(private primengConfig: PrimeNGConfig) { }
+  constructor(private primengConfig: PrimeNGConfig, public auth: AuthService) { }
 }
 

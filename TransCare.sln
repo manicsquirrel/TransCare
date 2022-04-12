@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCare.Web", "src\TransC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{29F60B4E-7FB7-42E4-9E3F-767909D456AF}"
 	ProjectSection(SolutionItems) = preProject
-		ReadeMe.md = ReadeMe.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4F10E395-39AA-4518-9C28-56166AA8E52A}"
