@@ -28,6 +28,11 @@ import { MessageModule } from 'primeng/message';
 import { InputMaskModule } from 'primeng/inputmask';
 import { RippleModule } from 'primeng/ripple';
 import { MenuModule } from 'primeng/menu';
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment as env } from 'src/environments/environment';
+import { LoginButtonComponent } from './components/login-button/login-button.component';
+import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -40,7 +45,10 @@ import { MenuModule } from 'primeng/menu';
     HealthProviderSearchBoxComponent,
     HealthProviderSearchResultComponent,
     HealthProviderNearMeComponent,
-    HealthProviderReportComponent
+    HealthProviderReportComponent,
+    LoginButtonComponent,
+    LogoutButtonComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -62,7 +70,10 @@ import { MenuModule } from 'primeng/menu';
     MessageModule,
     InputMaskModule,
     RippleModule,
-    MenuModule
+    MenuModule,
+    AuthModule.forRoot({
+      ...env.auth
+    })
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
