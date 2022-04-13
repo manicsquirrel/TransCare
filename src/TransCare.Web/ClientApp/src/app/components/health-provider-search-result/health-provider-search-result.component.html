@@ -4,12 +4,14 @@
     <div class="container">
       <div class="card-container blue-container">
         <div class="flex">
-          <app-health-provider-search-box class="align-items-center justify-content-between w-full pr-4"
+          <app-health-provider-search-box class="align-items-center justify-content-between w-full"
             (textChange)="onTextChange($event)">
           </app-health-provider-search-box>
-          <button class="align-items-center justify-content-center" style="width: 150px;" pButton pRipple label="New"
-            icon="pi pi-plus" class="p-button-success" [routerLink]="['/new']">
-          </button>
+          <div class="pl-4" *ngIf="(auth.isAuthenticated$ | async)">
+            <button class="align-items-center justify-content-center" style="width: 150px;" pButton pRipple label="New"
+              icon="pi pi-plus" [routerLink]="['/new']">
+            </button>
+          </div>
         </div>
       </div>
 
@@ -33,7 +35,8 @@
                   </div>
                 </div>
                 <div class="mt-2 md:mt-0 flex flex-nowrap">
-                  <a *ngIf="provider.phone" class="buttonLink" id="buttonPhone" href="{{ getPhoneLink(provider.phone) }}">
+                  <a *ngIf="provider.phone" class="buttonLink" id="buttonPhone"
+                    href="{{ getPhoneLink(provider.phone) }}">
                     <button pbutton="" pripple="" icon="pi pi-phone"
                       class="p-element p-ripple p-button-text p-button-plain p-button-rounded mr-1 p-button p-component p-button-icon-only">
                       <span class="p-button-icon pi pi-phone" aria-hidden="true"> </span>
