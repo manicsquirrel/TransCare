@@ -1,4 +1,5 @@
 import { Component, isDevMode, OnInit } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { HealthProvider } from 'src/app/models/health-provider';
@@ -20,7 +21,7 @@ export class HealthProviderSearchResultComponent implements OnInit {
     })
   );
 
-  constructor(private healthProviderService: HealthProviderService) { }
+  constructor(public auth: AuthService, private healthProviderService: HealthProviderService) { }
 
   onTextChange(changedText: string) {
     if (changedText.length > 1) this.searchTerm.next(changedText);
@@ -37,13 +38,13 @@ export class HealthProviderSearchResultComponent implements OnInit {
   getPhoneLink(phone: string) {
     var cleaned = ('' + phone).replace(/\D/g, '');
     var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-    return match ?  `tel:+1-${match[1]}-${match[2]}-${match[3]}`: null;
+    return match ? `tel:+1-${match[1]}-${match[2]}-${match[3]}` : null;
   }
 
   getPhoneDisplay(phone: string) {
     var cleaned = ('' + phone).replace(/\D/g, '');
     var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-    return match ?  `(${match[1]}) ${match[2]}-${match[3]}`: null;
+    return match ? `(${match[1]}) ${match[2]}-${match[3]}` : null;
   }
 
   // getUserLocation() {
