@@ -3,7 +3,7 @@ name: "TransCare"
 
 on:
   push:
-  pull_request:
+  #pull_request:
     branches: [ main ]
     paths-ignore:
     - 'README.md'
