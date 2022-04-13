@@ -32,6 +32,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from 'src/environments/environment';
 import { LoginButtonComponent } from './components/login-button/login-button.component';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { LogoutButtonComponent } from './components/logout-button/logout-button.
     HealthProviderNearMeComponent,
     HealthProviderReportComponent,
     LoginButtonComponent,
-    LogoutButtonComponent
+    LogoutButtonComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
