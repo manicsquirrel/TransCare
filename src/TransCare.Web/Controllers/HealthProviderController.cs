@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Net;
 using TransCare.Models;
 using TransCare.Services.Abstractions;
-using TransCare.Web.Pages;
-using AutoMapper;
 using TransCare.Web.Models.Responses;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using System.Linq;
 
 namespace TransCare.Web.Controllers
 {
@@ -28,14 +24,36 @@ namespace TransCare.Web.Controllers
         [Produces("application/json")]
         [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProviderResponse>))]
         [SwaggerResponse(500, "Internal server error")]
-        public IActionResult Search(string query)
+        public async Task<IActionResult> SearchAsync(string query)
         {
-            if(string.IsNullOrWhiteSpace(query)) return Ok(new List<HealthProviderResponse>());
+            if (string.IsNullOrWhiteSpace(query)) return Ok(new List<HealthProviderResponse>());
 
             try
             {
                 return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>
-                    (_healthProviderService.GetFiltered(query)));
+                    (await _healthProviderService.GetFilteredAsync(query)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpGet("nearme")]
+        [Produces("application/json")]
+        [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProviderResponse>))]
+        [SwaggerResponse(500, "Internal server error")]
+        public async Task<IActionResult> GetNearestAsync([FromQuery] HealthProviderNearMeRequest healthProviderNearMeRequest)
+        {
+            if (healthProviderNearMeRequest==null) return Ok(new List<HealthProviderResponse>());
+
+            try
+            {
+                return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>
+                    (await _healthProviderService.GetNearestAsync(
+                        healthProviderNearMeRequest.Take, 
+                        healthProviderNearMeRequest.Latitude, 
+                        healthProviderNearMeRequest.Longitude)));
             }
             catch (Exception ex)
             {
@@ -47,12 +65,12 @@ namespace TransCare.Web.Controllers
         [Produces("application/json")]
         [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProviderResponse>))]
         [SwaggerResponse(500, "Internal server error")]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
             try
             {
                 return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>
-                    (_healthProviderService.GetAll()));
+                    (await _healthProviderService.GetAllAsync()));
             }
             catch (Exception ex)
             {
@@ -65,12 +83,12 @@ namespace TransCare.Web.Controllers
         [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProviderResponse>))]
         [SwaggerResponse(404, "Health provider not found.")]
         [SwaggerResponse(500, "Internal server error")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
             try
             {
                 return Ok(_mapper.Map<HealthProvider, HealthProviderResponse>
-                    (_healthProviderService.Get(id)));
+                    (await _healthProviderService.GetAsync(id)));
             }
             catch (Exception ex)
             {
@@ -83,13 +101,13 @@ namespace TransCare.Web.Controllers
         [SwaggerResponse(201, "Inserts or updates a health provider", typeof(HealthProviderResponse))]
         [SwaggerResponse(400, "Bad request. Invalid parameter.")]
         [SwaggerResponse(500, "Internal server error")]
-        public IActionResult Create([FromBody] HealthProviderRequest request)
+        public async Task<IActionResult> CreateAsync([FromBody] HealthProviderRequest request)
         {
             if (request == null) return BadRequest("Invalid save request. Request body null or empty");
             try
             {
                 var provider = _mapper.Map<HealthProviderRequest, HealthProvider>(request);
-                return Ok(_mapper.Map<HealthProvider, HealthProviderResponse>(_healthProviderService.Save(provider)));
+                return Ok(_mapper.Map<HealthProvider, HealthProviderResponse>(await _healthProviderService.SaveAsync(provider)));
             }
             catch (Exception ex)
             {
@@ -102,12 +120,12 @@ namespace TransCare.Web.Controllers
         [SwaggerResponse(200, "Deletes a health provider by id.")]
         [SwaggerResponse(400, "Bad request. Invalid parameter.")]
         [SwaggerResponse(500, "Internal server error")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             if (id == 0) return BadRequest("Invalid save request. Request body null or empty");
             try
             {
-                _healthProviderService.Delete(id);
+                await _healthProviderService.DeleteAsync(id);
                 return NoContent();
             }
             catch (Exception ex)

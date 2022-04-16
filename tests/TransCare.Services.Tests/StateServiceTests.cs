@@ -1,41 +1,36 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Moq.EntityFrameworkCore;
+﻿using Moq;
 using System.Collections.Generic;
 using System.Linq;
-using TransCare.Data;
-using TransCare.Data.Entities;
+using System.Threading.Tasks;
 using TransCare.Interfaces;
 using TransCare.Models;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace TransCare.Services.Tests
 {
     public class StateServiceTests
     {
         [Fact()]
-        public void GetAllTest()
+        public async Task GetAllTest()
         {
-            var expectedResult = new List<State>
-            {
-                new State { Code="AR" , Name ="Arkansas"},
-                new State { Code="AR" , Name ="Arkansas"},
-                new State { Code="AZ" , Name ="Arizona"},
-                new State { Code="AK" , Name ="Alaska"},
-                new State { Code="NV" , Name ="Nevada"},
-                new State { Code="NM" , Name ="New Mexico"}
-            };
-
-            var stateRepositoryMock = new Mock<IStateRepository>();
-            stateRepositoryMock.Setup(c => c.GetAll()).Returns(expectedResult.AsEnumerable());
-            var stateService = new StateService(stateRepositoryMock.Object);
+            // Arrange
+            var repositoryMock = new Mock<IStateRepository>();
+            repositoryMock
+                .Setup(r => r.GetAllAsync())
+                .Returns(Task.FromResult(new List<State>
+                {
+                    new State { Code="AR" , Name ="Arkansas"},
+                    new State { Code="AZ" , Name ="Arizona"}
+                }.AsEnumerable()));
+            var sut = new StateService(repositoryMock.Object);
 
             // Act
-            var actualResult = stateService.GetAll();
+            var providers = await sut.GetAllAsync();
 
             // Assert
-            CollectionAssert.AreEquivalent(expectedResult, actualResult.ToList());
+            repositoryMock.Verify(r => r.GetAllAsync());
+            Xunit.Assert.Equal("Arkansas", providers.ElementAt(0).Name);
+            Xunit.Assert.Equal("Arizona", providers.ElementAt(1).Name);
         }
     }
 }

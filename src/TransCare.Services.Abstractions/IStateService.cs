@@ -4,6 +4,6 @@ namespace TransCare.Services.Abstractions
 {
     public interface IStateService
     {
-        IEnumerable<State> GetAll();
+        Task<IEnumerable<State>> GetAllAsync();
     }
 }

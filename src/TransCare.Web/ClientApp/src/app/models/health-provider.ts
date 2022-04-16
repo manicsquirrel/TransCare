@@ -14,5 +14,6 @@ export class HealthProvider {
   stateName?: string;
   street: string = '';
   zipCode: string = '';
+  distance: number=0;
 }
 

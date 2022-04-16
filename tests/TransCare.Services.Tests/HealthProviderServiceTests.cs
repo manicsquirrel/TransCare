@@ -1,7 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Extensions.Options;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TransCare.Interfaces;
 using TransCare.Models;
 using Xunit;
@@ -11,90 +12,117 @@ namespace TransCare.Services.Tests
     public class HealthProviderServiceTests
     {
         [Fact()]
-        public void DeleteTest()
+        public async Task GetAllTest()
         {
             // Arrange
-            var providerRepositoryMock = new Mock<IProviderRepository>();
+            var repositoryMock = new Mock<IHealthProviderRepository>();
+            repositoryMock
+                .Setup(r => r.GetAllAsync())
+                .Returns(Task.FromResult(new List<HealthProvider>
+                {
+                    new HealthProvider
+                    {
+                        Id = 1,
+                        Latitude = 47.245658,
+                        Longitude = -68.577575,
+                        ProviderName = "Fort Kent Family Planning",
+                        Notes = "",
+                        Email = "",
+                        Phone = "",
+                        Url = "",
+                        City = "Fort Kent",
+                        State = new State { Code = "ME", Name = "Maine" },
+                        Street = "139 Market St",
+                        ZipCode = "04743"
+                    },
+                    new HealthProvider
+                    {
+                        Id = 2,
+                        Latitude = 44.548562,
+                        Longitude = -69.630567,
+                        ProviderName = "Waterville Family Planning",
+                        Notes = "",
+                        Email = "",
+                        Phone = "",
+                        Url = "",
+                        City = "Waterville",
+                        State = new State { Code = "ME", Name = "Maine" },
+                        ZipCode = "04901"
+                    }
+                }.AsEnumerable()));
+            var sut = new HealthProviderService(repositoryMock.Object, new Mock<IOptionsMonitor<ApiKeyOptions>>().Object);
 
             // Act
-            providerRepositoryMock.Object.Delete(1);
+            var providers = await sut.GetAllAsync();
 
             // Assert
-            providerRepositoryMock.Verify(x => x.Delete(1), Times.Once);
+            repositoryMock.Verify(r => r.GetAllAsync());
+            Xunit.Assert.Equal("Fort Kent Family Planning", providers.ElementAt(0).ProviderName);
+            Xunit.Assert.Equal("Waterville Family Planning", providers.ElementAt(1).ProviderName);
         }
 
         [Fact()]
-        public void GetAllTest()
+        public async Task GetFilteredTest()
         {
             // Arrange
-            var expectedResult = new List<HealthProvider>
-            {
-                new HealthProvider {Id=1,Latitude=47.245658,Longitude=-68.577575,ProviderName="Fort Kent Family Planning",Notes="",Email="",Phone="",Url="",City="Fort Kent",State=new State{Code="ME",Name="Maine" },Street="139 Market St",ZipCode="04743"},
-                new HealthProvider {Id=2,Latitude=44.548562,Longitude=-69.630567,ProviderName="Waterville Family Planning",Notes="",Email="",Phone="",Url="",City="Waterville",State=new State{Code="ME",Name="Maine" },ZipCode="04901"},
-                new HealthProvider {Id=3,Latitude=44.824192,Longitude=-68.736230,ProviderName="Mabel Wadsworth Center",Notes="",Email="",Phone="",Url="",City="Bangor",State=new State{Code="ME",Name="Maine" },Street="700 Mt Hope Ave",ZipCode="04401"},
-                new HealthProvider {Id=4,Latitude=44.489903,Longitude=-73.206145,ProviderName="Community Health Centers of Burlington",Notes="",Email="",Phone="",Url="",City="Burlington",State=new State{Code="VT",Name="Vermont" },Street="617 Riverside Ave",ZipCode="05401"},
-                new HealthProvider {Id=5,Latitude=43.201864,Longitude=-71.535041,ProviderName="Equality Health Center",Notes="",Email="",Phone="",Url="",City="Concord",State=new State{Code="NH",Name="New Hampshire" },Street="38 S Main St",ZipCode="03301"},
-            };
-            var providerRepositoryMock = new Mock<IProviderRepository>();
-            providerRepositoryMock.Setup(p => p.GetAll()).Returns(expectedResult.AsEnumerable());
-            var providerService = new HealthProviderService(providerRepositoryMock.Object);
+            var query = "fort";
+            var repositoryMock = new Mock<IHealthProviderRepository>();
+            repositoryMock
+                .Setup(r => r.GetFilteredAsync(query))
+                .Returns(Task.FromResult(new List<HealthProvider>
+                {
+                    new HealthProvider
+                    {
+                        Id = 1,
+                        Latitude = 47.245658,
+                        Longitude = -68.577575,
+                        ProviderName = "Fort Kent Family Planning",
+                        Notes = "",
+                        Email = "",
+                        Phone = "",
+                        Url = "",
+                        City = "Fort Kent",
+                        State = new State { Code = "ME", Name = "Maine" },
+                        Street = "139 Market St",
+                        ZipCode = "04743"
+                    }
+                }.AsEnumerable()));
+            var sut = new HealthProviderService(repositoryMock.Object, new Mock<IOptionsMonitor<ApiKeyOptions>>().Object);
 
             // Act
-            var actualResult = providerService.GetAll();
+            var providers = await sut.GetFilteredAsync(query);
 
             // Assert
-            CollectionAssert.AreEquivalent(expectedResult, actualResult.ToList());
+            repositoryMock.Verify(r => r.GetFilteredAsync(query));
+            Xunit.Assert.Equal("Fort Kent Family Planning", providers.ElementAt(0).ProviderName);
         }
 
         [Fact()]
-        public void GetFilteredTest()
+        public async Task GetTest()
         {
             // Arrange
-            var query = "Fort";
-            var expectedResult = new List<HealthProvider>
-            {
-                new HealthProvider {Id=1,Latitude=47.245658,Longitude=-68.577575,ProviderName="Fort Kent Family Planning",Notes="",Email="",Phone="",Url="",City="Fort Kent",State=new State{Code="ME",Name="Maine" },Street="139 Market St",ZipCode="04743"},
-            };
-            var providerRepositoryMock = new Mock<IProviderRepository>();
-            providerRepositoryMock.Setup(p => p.GetFiltered(query)).Returns(expectedResult.AsEnumerable());
-            var providerService = new HealthProviderService(providerRepositoryMock.Object);
+            var repositoryMock = new Mock<IHealthProviderRepository>();
+            repositoryMock
+                .Setup(r => r.GetAsync(1))
+                .Returns(Task.FromResult(new HealthProvider
+                {
+                    Id = 1,
+                    Latitude = 47.245658,
+                    Longitude = -68.577575,
+                    ProviderName = "Fort Kent Family Planning",
+                    City = "Fort Kent",
+                    State = new State { Code = "ME", Name = "Maine" },
+                    Street = "139 Market St",
+                    ZipCode = "04743"
+                }));
+            var sut = new HealthProviderService(repositoryMock.Object, new Mock<IOptionsMonitor<ApiKeyOptions>>().Object);
 
             // Act
-            var actualResult = providerService.GetFiltered(query);
+            var actualResult = await sut.GetAsync(1);
 
             // Assert
-            CollectionAssert.AreEquivalent(expectedResult, actualResult.ToList());
-        }
-
-        [Fact()]
-        public void GetTest()
-        {
-            var expectedResult = new HealthProvider { Id = 1, Latitude = 47.245658, Longitude = -68.577575, ProviderName = "Fort Kent Family Planning", Notes = "", Email = "", Phone = "", Url = "", City = "Fort Kent", State = new State { Code = "ME", Name = "Maine" }, Street = "139 Market St", ZipCode = "04743" };
-            var providerRepositoryMock = new Mock<IProviderRepository>();
-            providerRepositoryMock.Setup(p => p.Get(1)).Returns(expectedResult);
-            var providerService = new HealthProviderService(providerRepositoryMock.Object);
-
-            // Act
-            var actualResult = providerService.Get(1);
-
-            // Assert
-            Xunit.Assert.Equal(expectedResult, actualResult);
-        }
-
-        [Fact()]
-        public void SaveTest()
-        {
-            // Arrange
-            var expectedResult = new HealthProvider { Id = 1, Latitude = 47.245658, Longitude = -68.577575, ProviderName = "Fort Kent Family Planning", Notes = "", Email = "", Phone = "", Url = "", City = "Fort Kent", State = new State { Code = "ME", Name = "Maine" }, Street = "139 Market St", ZipCode = "04743" };
-            var providerRepositoryMock = new Mock<IProviderRepository>();
-            providerRepositoryMock.Setup(p => p.Save(expectedResult)).Returns(expectedResult);
-            var providerService = new HealthProviderService(providerRepositoryMock.Object);
-
-            // Act
-            var actualResult = providerService.Save(expectedResult);
-
-            // Assert
-            Xunit.Assert.Equal(expectedResult, actualResult);
+            repositoryMock.Verify(r => r.GetAsync(1));
+            Xunit.Assert.Equal("Fort Kent Family Planning", actualResult.ProviderName);
         }
     }
 }

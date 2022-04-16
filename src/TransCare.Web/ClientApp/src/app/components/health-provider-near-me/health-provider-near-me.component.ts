@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, isDevMode, OnInit } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
+import { HealthProvider } from 'src/app/models/health-provider';
+import { HealthProviderNearMeRequest } from 'src/app/models/requests/health-provider-near-me-request';
+import { HealthProviderService } from 'src/app/services/provider.service';
 
 @Component({
   selector: 'app-health-provider-near-me',
@@ -7,9 +11,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HealthProviderNearMeComponent implements OnInit {
 
-  constructor() { }
+  healthProviders: HealthProvider[] = [];
+  healthProviderNearMeRequest!: HealthProviderNearMeRequest;
 
-  ngOnInit(): void {
+  constructor(public auth: AuthService, private healthProviderService: HealthProviderService) { }
+
+  async ngOnInit(): Promise<void> {
+    this.setUserLocation();
+    await this.setHealthProvider();
+  }
+
+  async setHealthProvider(): Promise<void> {
+    this.healthProviders = await this.healthProviderService.nearMe(this.healthProviderNearMeRequest);
+  }
+
+  setUserLocation() {
+    if (navigator.geolocation) {
+      if (isDevMode()) {
+        this.healthProviderNearMeRequest = new HealthProviderNearMeRequest(5, 35.6376233, -83.9296153);
+      }
+      else {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.healthProviderNearMeRequest = new HealthProviderNearMeRequest(5, position.coords.latitude, position.coords.longitude);
+        });
+      }
+    } else { console.log("User denied location.") }
   }
 
 }

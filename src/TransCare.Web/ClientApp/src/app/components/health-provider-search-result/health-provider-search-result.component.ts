@@ -1,4 +1,4 @@
-import { Component, isDevMode, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { HealthProviderService } from 'src/app/services/provider.service';
   templateUrl: './health-provider-search-result.component.html',
   styleUrls: ['./health-provider-search-result.component.scss']
 })
-export class HealthProviderSearchResultComponent implements OnInit {
+export class HealthProviderSearchResultComponent {
 
   searchTerm = new Subject<string>();
   providers$: Observable<HealthProvider[] | null> = this.searchTerm.pipe(
@@ -26,46 +26,5 @@ export class HealthProviderSearchResultComponent implements OnInit {
   onTextChange(changedText: string) {
     if (changedText.length > 1) this.searchTerm.next(changedText);
   }
-
-  ngOnInit() {
-    // this.getUserLocation();
-  }
-
-  getFormattedUrl(url: string) {
-    return url.startsWith("http") ? url : `\/\/${url}`;
-  }
-
-  getPhoneLink(phone: string) {
-    var cleaned = ('' + phone).replace(/\D/g, '');
-    var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-    return match ? `tel:+1-${match[1]}-${match[2]}-${match[3]}` : null;
-  }
-
-  getPhoneDisplay(phone: string) {
-    var cleaned = ('' + phone).replace(/\D/g, '');
-    var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-    return match ? `(${match[1]}) ${match[2]}-${match[3]}` : null;
-  }
-
-  // getUserLocation() {
-  //   if (isDevMode()) {
-  //     this.center = { lat: 35.6376233, lng: -83.9296153 };
-  //   }
-  //   else {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       this.center = {
-  //         lat: position.coords.latitude,
-  //         lng: position.coords.longitude
-  //       }
-  //     });
-  //   }
-  //   // if (navigator.geolocation) {
-  //   //   navigator.geolocation.getCurrentPosition(position => {
-  //   //     this.latitude = position.coords.latitude;
-  //   //     this.longitude = position.coords.longitude;
-  //   //   });
-  //   // } else { console.log("User not allow") }
-  // }
-
 
 }

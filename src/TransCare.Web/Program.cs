@@ -8,7 +8,7 @@ using TransCare.Web.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDataServices(builder.Configuration);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerServices();
 var app = builder.Build();
@@ -18,7 +18,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-        var context = services.GetRequiredService<TransCareContext>();
+        var context = services.GetRequiredService<TransCareContextDb>();
         DbInitializer.Initialize(context);
     }
     catch (Exception ex)

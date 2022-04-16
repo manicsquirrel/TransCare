@@ -8,7 +8,8 @@ namespace TransCare.Web.Extensions
         public static IServiceCollection AddSwaggerServices(this IServiceCollection services)
         {
             var assembly = Assembly.GetEntryAssembly();
-            AssemblyInformationalVersionAttribute versionAttribute = assembly?.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+            AssemblyInformationalVersionAttribute versionAttribute = assembly?
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>();
             string assemblyVersion = versionAttribute?.InformationalVersion ?? "";
 
             services.AddSwaggerGen(c =>

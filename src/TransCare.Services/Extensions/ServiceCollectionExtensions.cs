@@ -1,19 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransCare.Interfaces;
 using TransCare.Services.Abstractions;
 
 namespace TransCare.Services.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<ApiKeyOptions>(configuration.GetSection("ApiKeys"));
             services.AddScoped<IHealthProviderService, HealthProviderService>();
             services.AddScoped<IStateService, StateService>();
             return services;

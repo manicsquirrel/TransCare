@@ -23,11 +23,11 @@ namespace TransCare.Web.Controllers
         [Produces("application/json")]
         [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<StateResponse>))]
         [SwaggerResponse(500, "Internal server error")]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<State>, IEnumerable<StateResponse>>(_stateService.GetAll()));
+                return Ok(_mapper.Map<IEnumerable<State>, IEnumerable<StateResponse>>(await _stateService.GetAllAsync()));
             }
             catch (Exception ex)
             {

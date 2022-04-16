@@ -15,5 +15,6 @@
         public string Street { get; set; }
         public string Url { get; set; }
         public string ZipCode { get; set; }
+        public double Distance { get; set; }
     }
 }

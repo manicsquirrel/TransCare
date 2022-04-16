@@ -8,8 +8,10 @@ namespace TransCare.Services
     {
         private readonly IStateRepository _stateRepository;
 
-        public StateService(IStateRepository stateRepository) => _stateRepository = stateRepository;
+        public StateService(IStateRepository stateRepository) =>
+            _stateRepository = stateRepository;
 
-        public IEnumerable<State> GetAll() => _stateRepository.GetAll();
+        public async Task<IEnumerable<State>> GetAllAsync() =>
+            await _stateRepository.GetAllAsync();
     }
 }
