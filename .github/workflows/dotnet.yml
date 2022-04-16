@@ -35,6 +35,7 @@ jobs:
           files: '**/appsettings.json'
       env:
           ConnectionStrings.TransCareDatabase: ${{ secrets.SQL_CONNECTION_STRING }}
+          ApiKeys.GoogleMaps: ${{ secrets.API_KEY_GOOGLE_MAPS }}
            
     - name: FTP Deployer
       uses: sand4rt/ftp-deployer@v1.3
