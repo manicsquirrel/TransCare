@@ -14,7 +14,7 @@ export class HealthProviderSearchResultComponent {
 
   searchTerm = new Subject<string>();
   providers$: Observable<HealthProvider[] | null> = this.searchTerm.pipe(
-    switchMap(searchTerm => this.healthProviderService.findHealthProviders(searchTerm)),
+    switchMap(searchTerm => this.healthProviderService.filter(searchTerm)),
     catchError(errorResponse => {
       console.error(errorResponse);
       return of(null);

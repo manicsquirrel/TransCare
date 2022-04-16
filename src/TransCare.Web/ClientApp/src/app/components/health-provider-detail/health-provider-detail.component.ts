@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { HealthProvider } from 'src/app/models/health-provider';
 import { HealthProviderService } from 'src/app/services/provider.service';
 
@@ -12,8 +13,11 @@ import { HealthProviderService } from 'src/app/services/provider.service';
 export class HealthProviderDetailComponent implements OnInit {
 
   healthProvider: HealthProvider = new HealthProvider;
+  user: User = new User();
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    public auth: AuthService,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private providerService: HealthProviderService) {
   }
