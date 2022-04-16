@@ -33,6 +33,9 @@ import { environment as env } from 'src/environments/environment';
 import { LoginButtonComponent } from './components/login-button/login-button.component';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { FormatUrlPipePipe } from './pipes/format-url-pipe.pipe';
+import { PhoneDisplayPipePipe } from './pipes/phone-display-pipe.pipe';
+import { PhoneLinkPipePipe } from './pipes/phone-link-pipe.pipe';
 
 
 @NgModule({
@@ -48,7 +51,10 @@ import { ProfileComponent } from './components/profile/profile.component';
     HealthProviderReportComponent,
     LoginButtonComponent,
     LogoutButtonComponent,
-    ProfileComponent
+    ProfileComponent,
+    FormatUrlPipePipe,
+    PhoneDisplayPipePipe,
+    PhoneLinkPipePipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

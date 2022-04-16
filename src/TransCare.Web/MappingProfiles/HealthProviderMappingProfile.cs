@@ -9,11 +9,12 @@ namespace TransCare.Web.MappingProfiles
         public HealthProviderMappingProfile()
         {
             CreateMap<HealthProvider, HealthProviderResponse>()
-                .ForMember(d => d.StateCode, opt => opt.MapFrom(src => src.State.Code ?? ""))
-                .ForMember(d => d.StateName, opt => opt.MapFrom(src => src.State.Name ?? ""));
+                .ForMember(dest => dest.StateCode, opt => opt.MapFrom(src => src.State.Code ?? ""))
+                .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.Name ?? ""));
 
             CreateMap<HealthProviderRequest, HealthProvider>()
-                .ForMember(d => d.State, opt => opt.MapFrom(src => new State { Code = src.State, Name = "" }));
+                .ForMember(dest => dest.State, opt => opt.MapFrom(src => new State { Code = src.State, Name = "" }))
+                .ForMember(dest => dest.StateCode, opts => opts.MapFrom(src => src.State));
         }
     }
 }

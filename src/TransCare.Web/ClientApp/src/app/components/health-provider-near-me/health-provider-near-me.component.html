@@ -1,1 +1,51 @@
-<p>health-provider-near-me works!</p>
+<ng-container *ngIf="healthProviders as providers; else noResults">
+  <ul class="list-none p-0 m-0" *ngFor="let provider of providers;">
+    <li class="providerBorder flex flex-column md:flex-row md:align-items-center md:justify-content-between p-3 border-1 mb-3">
+      <div class="flex selectable-row" [routerLink]="['/detail', provider.id]">
+        <div class="mr-0 md:mr-8">
+          <span class="block text-900 font-medium mb-1 providerLink">{{ provider.providerName }}</span>
+          <div class="text-600">
+            <address>
+              {{ provider.street }} <br />
+              {{ provider.city }}, {{ provider.stateCode }} {{ provider.zipCode }} <br />
+              <span *ngIf="provider.phone">{{ provider.phone | phoneDisplay }}</span>
+            </address>
+          </div>
+          <div>
+            <span>Distance: {{ provider.distance }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-2 md:mt-0 flex flex-nowrap">
+        <a *ngIf="provider.phone" class="buttonLink" id="buttonPhone" href="{{ provider.phone | phoneLink }}">
+          <button pbutton="" pripple="" icon="pi pi-phone"
+            class="p-element p-ripple p-button-text p-button-plain p-button-rounded mr-1 p-button p-component p-button-icon-only">
+            <span class="p-button-icon pi pi-phone" aria-hidden="true"> </span>
+            <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+            <span class="p-ink"></span>
+          </button>
+        </a>
+        <a *ngIf="provider.email" class="buttonLink" id="buttonEmail" href="mailto:{{ provider.email }}"
+          target="_blank">
+          <button pbutton="" pripple="" icon="pi pi-send"
+            class="p-element p-ripple p-button-text p-button-plain p-button-rounded mr-1 p-button p-component p-button-icon-only">
+            <span class="p-button-icon pi pi-send" aria-hidden="true"> </span>
+            <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+            <span class="p-ink"></span>
+          </button>
+        </a>
+        <a *ngIf="provider.url" class="buttonLink" id="buttonUrl" href="{{ provider.url | formatUrl }}" target="_blank">
+          <button pbutton="" pripple="" icon="pi pi-external-link"
+            class="p-element p-ripple p-button-text p-button-plain p-button-rounded mr-1 p-button p-component p-button-icon-only">
+            <span class="p-button-icon pi pi-external-link" aria-hidden="true"></span>
+            <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+            <span class="p-ink"></span>
+          </button>
+        </a>
+      </div>
+    </li>
+  </ul>
+</ng-container>
+<ng-template #noResults>
+  <span>Enter a single search term like part of a provider's name, street, city, state, phone, or note.</span>
+</ng-template>

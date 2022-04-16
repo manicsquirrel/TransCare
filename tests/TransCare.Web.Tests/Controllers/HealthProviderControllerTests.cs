@@ -5,6 +5,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Net;
+using System.Threading.Tasks;
+using TransCare.Interfaces;
+using TransCare.Models;
 using TransCare.Services.Abstractions;
 using TransCare.Web.Tests;
 using Xunit;
@@ -26,10 +29,10 @@ namespace TransCare.Web.Controllers.Tests
 
         [Theory]
         [AutoMoqData]
-        public void GetById_When_Valid_Returns_Ok(int id)
+        public async Task GetById_When_Valid_Returns_Ok(int id)
         {
             // Act
-            var actualResult = sut.Get(id) as OkObjectResult;
+            var actualResult = await sut.GetAsync(id) as OkObjectResult;
 
             // Assert
             Assert.Equal(200, actualResult?.StatusCode);
@@ -37,10 +40,10 @@ namespace TransCare.Web.Controllers.Tests
 
         [Theory]
         [AutoMoqData]
-        public void Search_When_Valid_Returns_Ok(string query)
+        public async Task Search_When_Valid_Returns_Ok(string query)
         {
             // Act
-            var actualResult = sut.Search(query) as OkObjectResult;
+            var actualResult = await sut.SearchAsync(query) as OkObjectResult;
 
             // Assert
             Assert.Equal(200, actualResult?.StatusCode);

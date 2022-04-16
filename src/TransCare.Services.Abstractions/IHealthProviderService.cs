@@ -4,14 +4,16 @@ namespace TransCare.Services.Abstractions
 {
     public interface IHealthProviderService
     {
-        HealthProvider Get(int id);
+        Task DeleteAsync(int id);
 
-        IEnumerable<HealthProvider> GetAll();
+        Task<IEnumerable<HealthProvider>> GetAllAsync();
 
-        HealthProvider Save(HealthProvider provider);
+        Task<HealthProvider> GetAsync(int id);
 
-        void Delete(int id);
+        Task<IEnumerable<HealthProvider>> GetFilteredAsync(string query);
 
-        IEnumerable<HealthProvider> GetFiltered(string query);
+        Task<IEnumerable<HealthProvider>> GetNearestAsync(int take, double latitude, double longitude);
+
+        Task<HealthProvider> SaveAsync(HealthProvider provider);
     }
 }

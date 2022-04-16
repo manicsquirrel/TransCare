@@ -1,19 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using TransCare.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TransCare.Models;
 
 namespace TransCare.Data.Configurations
 {
-    public  class StateConfiguration : IEntityTypeConfiguration<StateData>
+    public partial class StateConfiguration : IEntityTypeConfiguration<State>
     {
-        public void Configure(EntityTypeBuilder<StateData> entity)
+        public void Configure(EntityTypeBuilder<State> entity)
         {
+            entity.HasKey(e => e.Code);
+
             entity.ToTable("State");
-            entity.HasKey("Code");                       
 
             entity.Property(e => e.Code)
-                .IsRequired()
                 .HasMaxLength(2)
                 .IsUnicode(false);
 
@@ -21,11 +20,6 @@ namespace TransCare.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
-
-
-            //OnConfigurePartial(entity);
         }
-
-        //partial void OnConfigurePartial(EntityTypeBuilder<StateData> entity);
     }
 }

@@ -20,10 +20,14 @@
 
         public string City { get; set; }
 
+        public string StateCode { get; set; }
+
         public State State { get; set; }
 
         public string Street { get; set; }
 
         public string ZipCode { get; set; }
+
+        public double Distance { get; set; }
     }
 }

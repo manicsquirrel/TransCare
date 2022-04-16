@@ -67,7 +67,7 @@
 
       <div class="field mb-4 col-12 md:col-6">
         <label for="emailInput" class="font-medium text-900">Email</label>
-        <input id="emailInput" formControlName="email" type="text" pinputtext=""
+        <input id="emailInput" formControlName="email" type="email" email
           class="p-inputtext p-component p-element">
       </div>
 
@@ -101,7 +101,7 @@
         </div>
         <div class="flex align-items-center justify-content-center">
           <button pButton pRipple label="Save Provider" icon="pi pi-check" type="submit"
-            [disabled]="!form.valid" [ngClass]="form.invalid ? 'btn-danger' : 'btn-primary'"></button>
+            [disabled]="!form.valid" [ngClass]="form.invalid ? 'btn-danger' : 'bg-pink-200 text-white'"></button>
         </div>
       </div>
     </div>
