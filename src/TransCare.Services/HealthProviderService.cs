@@ -1,7 +1,6 @@
 ﻿using Geocoding;
 using Geocoding.Google;
 using Geolocation;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using TransCare.Interfaces;
 using TransCare.Models;
@@ -31,8 +30,12 @@ namespace TransCare.Services
         public async Task<IEnumerable<HealthProvider>> GetAllAsync() =>
             await _healthProviderRepository.GetAllAsync();
 
-        public async Task<IEnumerable<HealthProvider>> GetFilteredAsync(string query) =>
-            await _healthProviderRepository.GetFilteredAsync(query);
+        public async Task<IEnumerable<HealthProvider>> GetFilteredAsync(string query, double latitude, double longitude)
+        {
+            var providers = await _healthProviderRepository.GetFilteredAsync(query);
+            providers.ForEach(p => p.Distance = GeoCalculator.GetDistance(latitude, longitude, p.Latitude, p.Longitude));
+            return providers.OrderBy(x => x.Distance);
+        }
 
         public async Task<IEnumerable<HealthProvider>> GetNearestAsync(int take, double latitude, double longitude)
         {
@@ -43,7 +46,6 @@ namespace TransCare.Services
 
         public async Task<HealthProvider> SaveAsync(HealthProvider provider)
         {
-            // set geocode information
             IGeocoder geocoder = new GoogleGeocoder() { ApiKey = _options.GoogleMaps };
             IEnumerable<Address> addresses = await geocoder.GeocodeAsync($"{provider.Street}, {provider.City}, {provider.State} {provider.ZipCode}");
             var normalizedAddress = addresses.FirstOrDefault();

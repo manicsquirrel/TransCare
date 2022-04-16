@@ -11,10 +11,10 @@
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-light" [routerLink]="['/search']">Search</a>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="(auth.isAuthenticated$ | async)" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light" [routerLink]="['/report']">Report</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="(auth.isAuthenticated$ | async)" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light" [routerLink]="['/profile']">Profile</a>
           </li>
           <li class="nav-item">

@@ -36,7 +36,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FormatUrlPipePipe } from './pipes/format-url-pipe.pipe';
 import { PhoneDisplayPipePipe } from './pipes/phone-display-pipe.pipe';
 import { PhoneLinkPipePipe } from './pipes/phone-link-pipe.pipe';
-
+import { LoadingComponent } from './components/loading/loading.component';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { PhoneLinkPipePipe } from './pipes/phone-link-pipe.pipe';
     ProfileComponent,
     FormatUrlPipePipe,
     PhoneDisplayPipePipe,
-    PhoneLinkPipePipe
+    PhoneLinkPipePipe,
+    LoadingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -77,6 +79,7 @@ import { PhoneLinkPipePipe } from './pipes/phone-link-pipe.pipe';
     InputMaskModule,
     RippleModule,
     MenuModule,
+    ProgressSpinnerModule,
     AuthModule.forRoot({
       ...env.auth
     })

@@ -12,8 +12,18 @@ namespace TransCare.Data.Extensions
         {
             services.AddScoped<IHealthProviderRepository, HealthProviderRepository>();
             services.AddScoped<IStateRepository, StateRepository>();
+
             services.AddDbContext<TransCareContextDb>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("TransCareDatabase")));
+            {
+                options.UseSqlServer(configuration.GetConnectionString("TransCareDatabase"),
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure(
+                    maxRetryCount: 10,
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null);
+                });
+            });
 
             return services;
         }

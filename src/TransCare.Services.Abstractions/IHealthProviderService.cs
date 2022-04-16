@@ -10,7 +10,7 @@ namespace TransCare.Services.Abstractions
 
         Task<HealthProvider> GetAsync(int id);
 
-        Task<IEnumerable<HealthProvider>> GetFilteredAsync(string query);
+        Task<IEnumerable<HealthProvider>> GetFilteredAsync(string query, double latitude, double longitude);
 
         Task<IEnumerable<HealthProvider>> GetNearestAsync(int take, double latitude, double longitude);
 

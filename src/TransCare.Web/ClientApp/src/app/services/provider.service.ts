@@ -1,29 +1,33 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, OnInit } from '@angular/core';
 import { HealthProvider } from '../models/health-provider';
 import { Observable } from 'rxjs';
 import { HealthProviderNearMeRequest } from '../models/requests/health-provider-near-me-request';
 import * as queryString from 'query-string';
+import { HealthProviderFilterRequest } from '../models/requests/health-provider-filter-request';
+import { LocationService } from './location.service';
+import { Coordinates } from '../models/coordinates';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HealthProviderService {
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  findHealthProviders(query: string): Observable<HealthProvider[]> {
-    return this.httpClient.get<HealthProvider[]>(`${this.baseUrl}healthProvider/search?query=${query}`);
+  constructor(
+    private httpClient: HttpClient,
+    @Inject('BASE_URL') private baseUrl: string,
+    private locationService: LocationService) { }
+
+  filter(query: string): Observable<HealthProvider[]> {
+    const coordinates = this.locationService.getUserLocation();
+    const healthProviderFilterRequest = new HealthProviderFilterRequest(query, coordinates.latitude, coordinates.longitude);
+    return this.httpClient.get<HealthProvider[]>(`${this.baseUrl}healthProvider/search?${queryString.stringify(healthProviderFilterRequest)}`);
   }
 
-  nearMe(healthProviderNearMeRequest: HealthProviderNearMeRequest): Promise<HealthProvider[]> {
+  nearMe(take: number): Promise<HealthProvider[]> {
+    const coordinates = this.locationService.getUserLocation();
+    const healthProviderNearMeRequest = new HealthProviderNearMeRequest(take, coordinates.latitude, coordinates.longitude);
     return this.httpClient.get<HealthProvider[]>(`${this.baseUrl}healthProvider/nearme?${queryString.stringify(healthProviderNearMeRequest)}`)
-      .toPromise()
-      .then(res => res as HealthProvider[])
-      .then(data => data);
-  }
-
-  search(query: string): Promise<HealthProvider[]> {
-    return this.httpClient.get<HealthProvider[]>(`${this.baseUrl}healthProvider/search?query=${query}`)
       .toPromise()
       .then(res => res as HealthProvider[])
       .then(data => data);

@@ -24,14 +24,21 @@ namespace TransCare.Web.Controllers
         [Produces("application/json")]
         [SwaggerResponse(200, "Returns a collection of health providers", typeof(IEnumerable<HealthProviderResponse>))]
         [SwaggerResponse(500, "Internal server error")]
-        public async Task<IActionResult> SearchAsync(string query)
+        public async Task<IActionResult> SearchAsync([FromQuery] HealthProviderFilterRequest healthProviderFilterRequest)
         {
-            if (string.IsNullOrWhiteSpace(query)) return Ok(new List<HealthProviderResponse>());
+            if (string.IsNullOrWhiteSpace(healthProviderFilterRequest?.Query))
+            {
+                return Ok(new List<HealthProviderResponse>());
+            }
 
             try
             {
                 return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>
-                    (await _healthProviderService.GetFilteredAsync(query)));
+                    (await _healthProviderService.GetFilteredAsync(
+                        healthProviderFilterRequest.Query,
+                        healthProviderFilterRequest.Latitude,
+                        healthProviderFilterRequest.Longitude
+                        )));
             }
             catch (Exception ex)
             {

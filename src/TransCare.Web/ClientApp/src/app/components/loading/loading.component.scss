@@ -1,0 +1,60 @@
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+:host ::ng-deep .custom-spinner .p-progress-spinner-circle {
+  animation: custom-progress-spinner-dash 1.5s ease-in-out infinite, custom-progress-spinner-color 6s ease-in-out infinite;
+}
+
+@keyframes custom-progress-spinner-color {
+
+  100%,
+  0% {
+    stroke: #55CDFC;
+  }
+
+  15% {
+    stroke: #99E1FD;
+  }
+
+  30% {
+    stroke: #DDF5FE;
+  }
+
+  45% {
+    stroke: #FDEEF1;
+  }
+
+  60% {
+    stroke: #FACBD4;
+  }
+
+  75% {
+    stroke: #F7A8B8;
+  }
+
+  90% {
+    stroke: #FEF6F8;
+  }
+}
+
+@keyframes custom-progress-spinner-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
