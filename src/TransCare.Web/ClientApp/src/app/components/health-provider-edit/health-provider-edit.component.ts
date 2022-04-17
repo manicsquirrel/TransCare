@@ -30,7 +30,8 @@ export class HealthProviderEditComponent implements OnInit {
     "longitude": [0]
   });
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private providerService: HealthProviderService,

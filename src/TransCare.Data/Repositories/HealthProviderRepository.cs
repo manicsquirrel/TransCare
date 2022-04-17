@@ -38,9 +38,10 @@ namespace TransCare.Data.Repositories
 
         public async Task<HealthProvider> SaveAsync(HealthProvider provider)
         {
-            var entity = await _transCareContext.HealthProviders.SingleAsync(p => p.Id == provider.Id);
+            var entity = await _transCareContext.HealthProviders.FirstOrDefaultAsync(p => p.Id == provider.Id);
             if (entity == null)
             {
+                provider.State = null;
                 var entry = await _transCareContext.AddAsync(provider);
                 entity = entry.Entity;
             }
