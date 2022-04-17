@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using TransCare.Interfaces;
 using TransCare.Models;
 using TransCare.Services.Abstractions;
+using TransCare.Web.Models.Requests;
+using TransCare.Web.Models.Responses;
 using TransCare.Web.Tests;
 using Xunit;
 
@@ -40,10 +42,16 @@ namespace TransCare.Web.Controllers.Tests
 
         [Theory]
         [AutoMoqData]
-        public async Task Search_When_Valid_Returns_Ok(string query)
+        public async Task Search_When_Valid_Returns_Ok(string query, double latitude, double longitude)
         {
             // Act
-            var actualResult = await sut.SearchAsync(query) as OkObjectResult;
+            var healthProviderFilterRequest = new HealthProviderFilterRequest
+            {
+                Query = query,
+                Latitude = latitude,
+                Longitude = longitude
+            };
+            var actualResult = await sut.SearchAsync(healthProviderFilterRequest) as OkObjectResult;
 
             // Assert
             Assert.Equal(200, actualResult?.StatusCode);

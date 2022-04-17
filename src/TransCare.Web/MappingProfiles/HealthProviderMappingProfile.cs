@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TransCare.Models;
+using TransCare.Web.Models.Requests;
 using TransCare.Web.Models.Responses;
 
 namespace TransCare.Web.MappingProfiles

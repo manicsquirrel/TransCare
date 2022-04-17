@@ -1,4 +1,4 @@
-﻿namespace TransCare.Web.Models.Responses
+﻿namespace TransCare.Web.Models.Requests
 {
     public class HealthProviderFilterRequest
     {

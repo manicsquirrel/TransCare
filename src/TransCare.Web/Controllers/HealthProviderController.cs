@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using TransCare.Models;
 using TransCare.Services.Abstractions;
+using TransCare.Web.Models.Requests;
 using TransCare.Web.Models.Responses;
 
 namespace TransCare.Web.Controllers
@@ -52,14 +53,14 @@ namespace TransCare.Web.Controllers
         [SwaggerResponse(500, "Internal server error")]
         public async Task<IActionResult> GetNearestAsync([FromQuery] HealthProviderNearMeRequest healthProviderNearMeRequest)
         {
-            if (healthProviderNearMeRequest==null) return Ok(new List<HealthProviderResponse>());
+            if (healthProviderNearMeRequest == null) return Ok(new List<HealthProviderResponse>());
 
             try
             {
                 return Ok(_mapper.Map<IEnumerable<HealthProvider>, IEnumerable<HealthProviderResponse>>
                     (await _healthProviderService.GetNearestAsync(
-                        healthProviderNearMeRequest.Take, 
-                        healthProviderNearMeRequest.Latitude, 
+                        healthProviderNearMeRequest.Take,
+                        healthProviderNearMeRequest.Latitude,
                         healthProviderNearMeRequest.Longitude)));
             }
             catch (Exception ex)
