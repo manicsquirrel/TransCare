@@ -90,7 +90,7 @@ namespace TransCare.Services.Tests
             var sut = new HealthProviderService(repositoryMock.Object, new Mock<IOptionsMonitor<ApiKeyOptions>>().Object);
 
             // Act
-            var providers = await sut.GetFilteredAsync(query);
+            var providers = await sut.GetFilteredAsync(query, 35, -85);
 
             // Assert
             repositoryMock.Verify(r => r.GetFilteredAsync(query));
