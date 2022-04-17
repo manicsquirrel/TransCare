@@ -57,4 +57,10 @@ export class HealthProviderService {
       .then(res => res as HealthProvider)
       .then(data => data);
   }
+
+  delete(id: number) {
+    if (id == null || id == 0) { return; }
+    this.httpClient.delete(`${this.baseUrl}healthProvider/delete?id=${id}`)
+      .toPromise();
+  }
 }
