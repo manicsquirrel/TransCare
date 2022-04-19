@@ -14,5 +14,5 @@ TransCare is a web based application that can be used to locate health care prov
 2. Ensure you have [Angular CLI (>=13.x)](https://cli.angular.io) installed. To install Angular 13, open a terminal or command prompt and type: `npm install -g @angular/cli`.
 3. You will to apply for a Google Maps API Key. That key will need to be added to your appsettings.json file in the ApiKeys.GoogleMaps section. However, recommend you add it to your user secrets instead to prevent accidentally checking the key into source control.
 
-# Build and Test
+## Build and Test
 Once the steps in Getting started have been completed you should be able to successfully build the application or run the included unit tests from the Test Explorer.
