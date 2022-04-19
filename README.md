@@ -12,9 +12,7 @@ TransCare is a web based application that can be used to locate health care prov
 ## Getting started
 1. Download and install [Node.js (>=16.x)](https://nodejs.org).
 2. Ensure you have [Angular CLI (>=13.x)](https://cli.angular.io) installed. To install Angular 13, open a terminal or command prompt and type: `npm install -g @angular/cli`.
-3. Clone the TransCare repo.
-4. Open the repo in Visual Studio.
-5. Right-click on the solution in your Solution Explorer and select Restore NuGet Packages from the popup menu.
+3. You will to apply for a Google Maps API Key. That key will need to be added to your appsettings.json file in the ApiKeys.GoogleMaps section. However, recommend you add it to your user secrets instead to prevent accidentally checking the key into source control.
 
 # Build and Test
 Once the steps in Getting started have been completed you should be able to successfully build the application or run the included unit tests from the Test Explorer.
