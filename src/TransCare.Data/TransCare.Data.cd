@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="TransCare.Data.Configurations.HealthProviderConfiguration" BaseTypeListCollapsed="true">
+    <Position X="4" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\HealthProviderConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransCare.Data.Configurations.StateConfiguration" BaseTypeListCollapsed="true">
+    <Position X="4" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configurations\StateConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransCare.Data.Extensions.ServiceCollectionExtensions">
+    <Position X="0.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\ServiceCollectionExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransCare.Data.Repositories.HealthProviderRepository" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="4.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAEABAAAABAAAAAAAAAAAAAAAIAAAAAAAAAAIAAAAIA=</HashCode>
+      <FileName>Repositories\HealthProviderRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransCare.Data.Repositories.StateRepository" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="7.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\StateRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransCare.Data.TransCareContextDb">
+    <Position X="0.5" Y="1.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAEAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>TransCareContextDb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TransCare.Interfaces.IHealthProviderRepository">
+    <Position X="5" Y="4.5" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TransCare.Interfaces.IStateRepository">
+    <Position X="5" Y="6.75" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

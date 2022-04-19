@@ -14,9 +14,9 @@
           <li *ngIf="(auth.isAuthenticated$ | async)" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light" [routerLink]="['/report']">Report</a>
           </li>
-          <li *ngIf="(auth.isAuthenticated$ | async)" class="nav-item" [routerLinkActive]="['link-active']">
+          <!--<li *ngIf="(auth.isAuthenticated$ | async)" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light" [routerLink]="['/profile']">Profile</a>
-          </li>
+          </li>-->
           <li class="nav-item">
             <app-login-button *ngIf="(auth.isAuthenticated$ | async) === false"></app-login-button>
             <app-logout-button *ngIf="(auth.isAuthenticated$ | async)"></app-logout-button>

@@ -9,12 +9,18 @@ export class LocationService {
   constructor() { }
 
   getUserLocation(): Coordinates {
+    // geographic center of the contiguous US as default
+    let coordinates = new Coordinates(39.5, -98.35);
+
+    // attempt to get user location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        return new Coordinates(position.coords.latitude, position.coords.longitude);
+        coordinates = new Coordinates(position.coords.latitude, position.coords.longitude);
       });
     }
-    // geographic center of the contiguous US
-    return new Coordinates(39.5, -98.35);
+    else {
+      console.log("User declined access to location.");
+    }
+    return coordinates;
   }
 }
