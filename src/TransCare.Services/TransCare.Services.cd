@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="TransCare.Services.Extensions.ServiceCollectionExtensions">
+    <Position X="0.5" Y="2.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\ServiceCollectionExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransCare.Services.ApiKeyOptions">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Options\ApiKeyOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransCare.Services.HealthProviderService" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="0.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAEABAAAAQAAAAAAAAAAAAAAAIAEAAAAAIAAIAAAAIA=</HashCode>
+      <FileName>HealthProviderService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TransCare.Services.StateService" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="3.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>StateService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="TransCare.Services.Abstractions.IHealthProviderService">
+    <Position X="8.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TransCare.Services.Abstractions.IStateService">
+    <Position X="8.5" Y="3.75" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { Coordinates } from 'src/app/models/coordinates';
 import { HealthProvider } from 'src/app/models/health-provider';
 import { HealthProviderService } from 'src/app/services/provider.service';
 
@@ -10,13 +11,25 @@ import { HealthProviderService } from 'src/app/services/provider.service';
 })
 export class HealthProviderNearMeComponent implements OnInit {
 
+  coordinates: Coordinates = new Coordinates(0, 0);
   healthProviders: HealthProvider[] = [];
 
   constructor(
     public auth: AuthService,
     private healthProviderService: HealthProviderService) { }
 
-  async ngOnInit(): Promise<void> {
-    this.healthProviders = await this.healthProviderService.nearMe(5);
+  ngOnInit(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.coordinates = new Coordinates(position.coords.latitude, position.coords.longitude);
+        this.getTopFive(position.coords.latitude, position.coords.longitude);
+        console.log(`User's location: ${this.coordinates.latitude}, ${this.coordinates.longitude}`);
+      });
+    }
+  }
+
+  private async getTopFive(latitude: number, longitude: number) {
+    console.log(`User's location: ${latitude}, ${longitude}`);
+    this.healthProviders = await this.healthProviderService.nearMe(5, new Coordinates(latitude, longitude));
   }
 }

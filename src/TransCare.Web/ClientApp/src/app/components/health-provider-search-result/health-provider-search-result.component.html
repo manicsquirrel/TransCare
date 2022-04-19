@@ -31,12 +31,12 @@
                         <span *ngIf="provider.phone">{{ provider.phone | phoneDisplay }}</span>
                       </address>
                     </div>
-                    <div>
+                    <div *ngIf="isLocationAllowed==true">
                       <span>Distance: {{ provider.distance }}</span>
                     </div>
                   </div>
                 </div>
-                <div class="mt-2 md:mt-0 flex flex-nowrap">
+                <div style="display:hidden" class="mt-2 md:mt-0 flex flex-nowrap">
                   <a *ngIf="provider.phone" class="buttonLink" id="buttonPhone" href="{{ provider.phone | phoneLink }}">
                     <button pbutton="" pripple="" icon="pi pi-phone"
                       class="p-element p-ripple p-button-text p-button-plain p-button-rounded mr-1 p-button p-component p-button-icon-only">

@@ -1,5 +1,3 @@
-using AutoMapper;
-using System.Reflection;
 using TransCare.Data;
 using TransCare.Data.Extensions;
 using TransCare.Services.Extensions;
@@ -12,6 +10,13 @@ builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerServices();
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<TransCareContextDb>();
+    dbContext.Database.EnsureCreated();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -21,6 +26,7 @@ else
 {
     app.UseHsts();
 }
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

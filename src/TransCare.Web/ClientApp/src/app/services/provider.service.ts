@@ -18,14 +18,12 @@ export class HealthProviderService {
     @Inject('BASE_URL') private baseUrl: string,
     private locationService: LocationService) { }
 
-  filter(query: string): Observable<HealthProvider[]> {
-    const coordinates = this.locationService.getUserLocation();
+  filter(query: string, coordinates: Coordinates): Observable<HealthProvider[]> {
     const healthProviderFilterRequest = new HealthProviderFilterRequest(query, coordinates.latitude, coordinates.longitude);
     return this.httpClient.get<HealthProvider[]>(`${this.baseUrl}healthProvider/search?${queryString.stringify(healthProviderFilterRequest)}`);
   }
 
-  nearMe(take: number): Promise<HealthProvider[]> {
-    const coordinates = this.locationService.getUserLocation();
+  nearMe(take: number, coordinates: Coordinates): Promise<HealthProvider[]> {
     const healthProviderNearMeRequest = new HealthProviderNearMeRequest(take, coordinates.latitude, coordinates.longitude);
     return this.httpClient.get<HealthProvider[]>(`${this.baseUrl}healthProvider/nearme?${queryString.stringify(healthProviderNearMeRequest)}`)
       .toPromise()

@@ -1,6 +1,7 @@
 <ng-container *ngIf="healthProviders as providers; else noResults">
   <ul class="list-none p-0 m-0" *ngFor="let provider of providers;">
-    <li class="providerBorder flex flex-column md:flex-row md:align-items-center md:justify-content-between p-3 border-1 mb-3">
+    <li
+      class="providerBorder flex flex-column md:flex-row md:align-items-center md:justify-content-between p-3 border-1 mb-3">
       <div class="flex selectable-row" [routerLink]="['/detail', provider.id]">
         <div class="mr-0 md:mr-8">
           <span class="block text-900 font-medium mb-1 providerLink">{{ provider.providerName }}</span>
@@ -16,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="mt-2 md:mt-0 flex flex-nowrap">
+      <div style="display:hidden" class="mt-2 md:mt-0 flex flex-nowrap">
         <a *ngIf="provider.phone" class="buttonLink" id="buttonPhone" href="{{ provider.phone | phoneLink }}">
           <button pbutton="" pripple="" icon="pi pi-phone"
             class="p-element p-ripple p-button-text p-button-plain p-button-rounded mr-1 p-button p-component p-button-icon-only">
