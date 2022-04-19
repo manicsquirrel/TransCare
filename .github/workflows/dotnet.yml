@@ -36,6 +36,15 @@ jobs:
       env:
           ConnectionStrings.TransCareDatabase: ${{ secrets.SQL_CONNECTION_STRING }}
           ApiKeys.GoogleMaps: ${{ secrets.API_KEY_GOOGLE_MAPS }}
+          
+    - name: Stop site offline by renaimg _app_offline.htm
+      shell: python
+      run: |
+        import ftplib
+        ftp = ftplib.FTP('${{ secrets.FTP_SERVER }}')
+        ftp.login('${{ secrets.FTP_USERNAME }}', '${{ secrets.FTP_PASSWORD }}')        
+        ftp.rename('_app_offline.htm', 'app_offline.htm')
+        ftp.quit()
            
     - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
@@ -43,10 +52,18 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
+        exclude: app_offline.htm
         local-dir: ./trans-care-app/
-        server-dir: ./
-        dangerous-clean-slate: true
-        log-level: verbose
+        log-level: standard
+        
+    - name: Start site by renaming app_offline.htm
+      shell: python
+      run: |
+        import ftplib
+        ftp = ftplib.FTP('${{ secrets.FTP_SERVER }}')
+        ftp.login('${{ secrets.FTP_USERNAME }}', '${{ secrets.FTP_PASSWORD }}')
+        ftp.rename('app_offline.htm', '_app_offline.htm')
+        ftp.quit()
     
         
         
