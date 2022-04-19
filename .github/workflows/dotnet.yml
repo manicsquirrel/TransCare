@@ -44,7 +44,7 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./trans-care-app/
-        server-dir: ${{ secrets.FTP_REMOTE_PATH }}/
+        server-dir: /
         dangerous-clean-slate: true
         log-level: standard
     
